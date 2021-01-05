@@ -24,7 +24,7 @@ const HomeScreen = ({navigation}) => {
 
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={styles.scrollView}>
+        style={styles.bagianScroll}>
         <Biaya />
         <Profile />
         <Menus />
@@ -39,13 +39,13 @@ const HomeScreen = ({navigation}) => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  scrollView: {
+  bagianScroll: {
     backgroundColor: '#fff',
+    marginVertical: 50,
   },
   pageArea: {
     height: '100%',
     backgroundColor: '#fff',
-    justifyContent: 'center',
   },
   title: {
     textAlign: 'center',
