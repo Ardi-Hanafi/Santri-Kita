@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { theme } from '../components/theme'
 
 const SplashScreen = ({ navigation }) => {
 
@@ -11,9 +12,7 @@ const SplashScreen = ({ navigation }) => {
     
     return (
         <SafeAreaView style={styles.pageArea}>
-            <View style={styles.container}>
-                <Text style={styles.title} >SEPLAAZZZ.....</Text>
-            </View>
+            <Text style={styles.title} >SEPLAAZZZ.....</Text>
         </SafeAreaView>
     )
 }
@@ -22,8 +21,8 @@ export default SplashScreen
 
 const styles = StyleSheet.create({
     pageArea: {
-        height: '100%',
-        backgroundColor: 'green',
+        height: '100%', width: '100%',
+        backgroundColor: theme.colors.green1,
         justifyContent:'center'
     },
     title: {
@@ -31,9 +30,5 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold',
         color: '#fff',
-    },
-    container: {
-        width: '100%',
-        alignContent: 'center',
     },
 })
