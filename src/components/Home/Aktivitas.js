@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  View,
-  FlatList,
-  StyleSheet,
-  Text,
-  StatusBar,
-  TouchableOpacity,
-} from 'react-native';
+import {View, FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
+
+import {useNavigation} from '@react-navigation/native';
 
 const DATA = [
   {
@@ -39,7 +33,12 @@ const Item = ({title, date, uji}) => (
   </View>
 );
 
-const App = () => {
+const Aktivitas = () => {
+  const navigation = useNavigation();
+  function handleClick() {
+    navigation.navigate('Aktivitas');
+  }
+
   const renderItem = ({item}) => <Item title={item.title} date={item.date} />;
 
   return (
@@ -50,7 +49,11 @@ const App = () => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        onPress={() => {
+          handleClick();
+        }}
+        style={styles.button}>
         <Text style={{color: '#fff'}}>Selengkapnya</Text>
       </TouchableOpacity>
     </>
@@ -87,4 +90,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default Aktivitas;

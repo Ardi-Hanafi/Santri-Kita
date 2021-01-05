@@ -1,7 +1,12 @@
 import React from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const Biaya = () => {
+  const navigation = useNavigation();
+  function handleClick(){
+    navigation.navigate('Biaya');
+  }
   return (
     <View style={styles.container}>
       <View style={styles.left}>
@@ -14,7 +19,7 @@ const Biaya = () => {
           title="Detail"
           color="#27AE60"
           onPress={() => {
-            alert('hai');
+            handleClick();
           }}
           accessibilityLabel="Tekan untuk melihat detail"
           style={styles.button}
