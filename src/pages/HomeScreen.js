@@ -1,45 +1,59 @@
 import 'react-native-gesture-handler';
-import React from 'react'
-import { 
-    StyleSheet, 
-    Text, 
-    View, SafeAreaView,
-    TouchableOpacity, 
-    Button, Image 
-} from 'react-native'
-import Navbar from '../components/Navbar'
-import Header from '../components/Header'
-
+import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Button,
+  Image,
+  ScrollView,
+} from 'react-native';
+import Navbar from '../components/Navbar';
+import Header from '../components/Header';
+import Biaya from '../components/Home/Biaya';
+import Profile from '../components/Home/Profile';
+import Menus from '../components/Home/Menus';
+import Aktivitas from '../components/Home/Aktivitas';
 
 const HomeScreen = ({navigation}) => {
-    return (
-        <SafeAreaView style={styles.pageArea}>
-            <Header></Header>
+  return (
+    <SafeAreaView style={styles.pageArea}>
+      <Header></Header>
 
-            <View style={styles.container}>
-                <Text style={styles.title} >Home</Text>
-            </View>
-            
-            <Navbar></Navbar>
-        </SafeAreaView>
-    )
-}
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        style={styles.scrollView}>
+        <Biaya />
+        <Profile />
+        <Menus />
+        <Aktivitas />
+      </ScrollView>
 
-export default HomeScreen
+      <Navbar></Navbar>
+    </SafeAreaView>
+  );
+};
+
+export default HomeScreen;
 
 const styles = StyleSheet.create({
-    pageArea: {
-        height: '100%',
-        backgroundColor: '#fff',
-        justifyContent:'center'
-    },
-    title: {
-        textAlign: 'center',
-        fontSize: 20,
-        fontWeight: 'bold'
-    },
-    container: {
-        width: '100%',
-        alignContent: 'center',
-    },
-})
+  scrollView: {
+    backgroundColor: '#fff',
+  },
+  pageArea: {
+    height: '100%',
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  container: {
+    width: '100%',
+    alignContent: 'center',
+  },
+});
