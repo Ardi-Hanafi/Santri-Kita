@@ -1,20 +1,28 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {StyleSheet, SafeAreaView, ScrollView} from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import Title from '../components/Title';
-import RiwayatList from '../components/Aktivitas/AktivitasList';
+import SilabusListDetail from '../components/Silabus/SilabusListDetail';
 
-const AktivitasScreen = ({navigation}) => {
+const SilabusScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.pageArea}>
       <Header></Header>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={styles.bagianScroll}>
-        <Title backRoute="Home" title="Aktivitas" />
-        <RiwayatList />
+        <Title backRoute="Silabus" title="Hafalan" />
+        <SilabusListDetail />
       </ScrollView>
 
       <Navbar></Navbar>
@@ -22,7 +30,7 @@ const AktivitasScreen = ({navigation}) => {
   );
 };
 
-export default AktivitasScreen;
+export default SilabusScreen;
 
 const styles = StyleSheet.create({
   bagianScroll: {
@@ -32,14 +40,5 @@ const styles = StyleSheet.create({
   pageArea: {
     height: '100%',
     backgroundColor: '#fff',
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  container: {
-    width: '100%',
-    alignContent: 'center',
   },
 });

@@ -1,12 +1,12 @@
 import React from 'react';
 import {TouchableOpacity, View, Text, Image, StyleSheet} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const Menu = (Props) => {
   const navigation = useNavigation();
-  
+
   function handleClick() {
-    navigation.navigate(Props.navigationName)  
+    navigation.navigate(Props.navigationName);
   }
 
   return (
@@ -22,7 +22,7 @@ const Menu = (Props) => {
           resizeMode="stretch"
         />
       </TouchableOpacity>
-      <Text>{Props.labelText}</Text>
+      <Text style={{color: '#71717A'}}>{Props.labelText}</Text>
     </View>
   );
 };

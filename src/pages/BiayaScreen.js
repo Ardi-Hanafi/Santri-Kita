@@ -9,10 +9,11 @@ const BiayaScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.pageArea}>
       <Header></Header>
-      <Title backRoute="Home" title='Biaya'/>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={styles.bagianScroll}></ScrollView>
+        style={styles.bagianScroll}>
+        <Title backRoute="Home" title="Biaya" />
+      </ScrollView>
 
       <Navbar></Navbar>
     </SafeAreaView>

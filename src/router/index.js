@@ -13,13 +13,14 @@ import {
   PrestasiScreen,
   SilabusScreen,
   BiayaScreen,
+  SilabusDetailScreen,
 } from '../pages';
 
 const Stack = createStackNavigator();
 
 const MainApp = () => {
   return (
-    <Stack.Navigator initialRouteName="Home" headerMode="none">
+    <Stack.Navigator initialRouteName="Kesehatan" headerMode="none">
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Kesehatan" component={KesehatanScreen} />
@@ -27,6 +28,7 @@ const MainApp = () => {
       <Stack.Screen name="Pelanggaran" component={PelanggaranScreen} />
       <Stack.Screen name="Prestasi" component={PrestasiScreen} />
       <Stack.Screen name="Silabus" component={SilabusScreen} />
+      <Stack.Screen name="SilabusDetail" component={SilabusDetailScreen} />
       <Stack.Screen name="Biaya" component={BiayaScreen} />
     </Stack.Navigator>
   );

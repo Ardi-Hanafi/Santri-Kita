@@ -28,9 +28,9 @@ const Title = (Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 75,
     flexDirection: 'row',
     marginHorizontal: 25,
+    marginVertical:20,
     alignItems: 'center',
   },
   title: {

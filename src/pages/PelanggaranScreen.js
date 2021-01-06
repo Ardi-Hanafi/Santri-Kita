@@ -9,10 +9,11 @@ const PelanggaranScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.pageArea}>
       <Header></Header>
-      <Title backRoute="Home" title="Riwayat Pelanggaran"/>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={styles.bagianScroll}></ScrollView>
+        style={styles.bagianScroll}>
+        <Title backRoute="Home" title="Riwayat Pelanggaran" />
+      </ScrollView>
 
       <Navbar></Navbar>
     </SafeAreaView>

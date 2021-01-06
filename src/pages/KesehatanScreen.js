@@ -4,15 +4,19 @@ import {StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import Title from '../components/Title';
-
+import KesehatanList from '../components/Kesehatan/KesehatanList';
+import FilterKesehatan from '../components/Kesehatan/FilterKesehatan';
 const KesehatanScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.pageArea}>
       <Header></Header>
-      <Title backRoute="Home" title='Riwayat Kesehatan' />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={styles.bagianScroll}></ScrollView>
+        style={styles.bagianScroll}>
+        <Title backRoute="Home" title="Riwayat Kesehatan" />
+        <FilterKesehatan />
+        <KesehatanList />
+      </ScrollView>
 
       <Navbar></Navbar>
     </SafeAreaView>

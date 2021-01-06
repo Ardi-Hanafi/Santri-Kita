@@ -9,10 +9,11 @@ const PrestasiScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.pageArea}>
       <Header></Header>
-      <Title backRoute="Home" title="Prestasi" />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={styles.bagianScroll}></ScrollView>
+        style={styles.bagianScroll}>
+        <Title backRoute="Home" title="Prestasi" />
+      </ScrollView>
 
       <Navbar></Navbar>
     </SafeAreaView>

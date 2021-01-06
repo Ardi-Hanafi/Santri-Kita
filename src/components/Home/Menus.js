@@ -8,7 +8,7 @@ const Menus = () => {
       <Menu navigationName="Kesehatan" imagePath={require('../../assets/Home/kesehatan.png')} labelText="Kesehatan"/>
       <Menu navigationName="Pelanggaran" imagePath={require('../../assets/Home/pelanggaran.png')} labelText="Pelaggaran"/>
       <Menu navigationName="Prestasi" imagePath={require('../../assets/Home/prestasi.png')} labelText="Prestasi"/>
-      <Menu navigationName="Silabus" imagePath={require('../../assets/Home/silabus.png')} labelText="silabus" />
+      <Menu navigationName="Silabus" imagePath={require('../../assets/Home/silabus.png')} labelText="Silabus" />
     </View>
   );
 };
