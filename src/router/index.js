@@ -36,7 +36,7 @@ const MainApp = () => {
 
 const Router = () => {
   return (
-    <Stack.Navigator initialRouteName="Splash" headerMode="none">
+    <Stack.Navigator initialRouteName="Login" headerMode="none">
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="MainApp" component={MainApp} />

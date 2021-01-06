@@ -1,12 +1,14 @@
 import React from 'react'
-import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import ButtonLg from '../components/ButtonLg'
 
 const LoginScreen = ({navigate}) => {
     return (
-        <SafeAreaView style={styles.pageArea} >
+        <SafeAreaView>
+        <ScrollView style={styles.pageArea} > 
+        <View style={styles.container} >
             <Text style={styles.title} >
                 Santri Kita
             </Text>
@@ -17,18 +19,20 @@ const LoginScreen = ({navigate}) => {
 
             <View style={styles.containerInput}>
             <Input
-                style={styles.inputLogin}
                 placeholder='Username'
+                returnKeyType='next'
             />
             <Input
                 placeholder='Password'
                 secureTextEntry={true}
+                returnKeyType='done'
             />
             </View>
             <TouchableOpacity onPress={() => navigation.navigate('MainApp')}>
                 <ButtonLg></ButtonLg>
             </TouchableOpacity>
-
+        </View>
+        </ScrollView>
         </SafeAreaView>
     )
 }
@@ -37,14 +41,18 @@ export default LoginScreen
 
 const styles = StyleSheet.create({
     pageArea: {
-        height: '100%', width: '100%',
-        alignItems: 'center',
+        height: '100%', width: '100%', 
         backgroundColor: '#fff',
+    },
+    container: {
+        width: '100%', height: '100%',
+        alignItems: 'center'
     },
     title: {
         fontFamily: 'Roboto', fontWeight: 'bold',
         fontSize: 24, textAlign: 'center',
-        color: '#27AE60', marginTop: '10%'
+        color: '#27AE60', 
+        marginTop: '10%',
     },
     gbrlogin: {
         width: 300, height: 185,
@@ -52,6 +60,6 @@ const styles = StyleSheet.create({
     },
     containerInput: {
         width: 290,
-        marginVertical: '20%',
+        marginVertical: '15%',
     },
 })

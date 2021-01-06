@@ -11,7 +11,7 @@ const Header = () => {
                     Santri Kita
                 </Text>
                 <TouchableOpacity style={styles.iconNotif} >
-                    <Notif  />
+                    <Notif />
                 </TouchableOpacity>
             </View>
         </View>
