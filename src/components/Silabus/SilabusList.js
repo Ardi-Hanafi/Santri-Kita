@@ -63,7 +63,7 @@ const SilabusList = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 10,
+    marginVertical: 10, 
     marginHorizontal: 25,
     flexDirection: 'row',
     alignItems: 'center',

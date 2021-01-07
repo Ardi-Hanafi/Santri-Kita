@@ -4,6 +4,7 @@ import {StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import Title from '../components/Title';
+import PrestasiList from '../components/Prestasi/PrestasiList';
 
 const PrestasiScreen = ({navigation}) => {
   return (
@@ -13,8 +14,8 @@ const PrestasiScreen = ({navigation}) => {
         contentInsetAdjustmentBehavior="automatic"
         style={styles.bagianScroll}>
         <Title backRoute="Home" title="Prestasi" />
+        <PrestasiList />
       </ScrollView>
-
       <Navbar></Navbar>
     </SafeAreaView>
   );

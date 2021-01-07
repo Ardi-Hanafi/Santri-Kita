@@ -1,29 +1,37 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {StyleSheet, SafeAreaView, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import Title from '../components/Title';
-import FilterPelanggaran from '../components/Pelanggaran/FilterPelanggaran'
-import PelanggaranList from '../components/Pelanggaran/PelanggaranList'
+import BiayaDetailList from '../components/Biaya/BiayaDetailList'
 
-const PelanggaranScreen = ({navigation}) => {
+const BiayaDetailScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.pageArea}>
       <Header></Header>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={styles.bagianScroll}>
-        <Title backRoute="Home" title="Riwayat Pelanggaran" />
-        <FilterPelanggaran />
-        <PelanggaranList />
+        style={styles.bagianScroll}> 
+        <View style={styles.container} >
+          <Title backRoute="Biaya" title="Rincian Biaya" />
+          <BiayaDetailList />
+        </View>
+        
       </ScrollView>
       <Navbar></Navbar>
     </SafeAreaView>
   );
 };
 
-export default PelanggaranScreen;
+export default BiayaDetailScreen;
 
 const styles = StyleSheet.create({
   bagianScroll: {
@@ -34,13 +42,8 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#fff',
   },
-  title: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
   container: {
-    width: '100%',
-    alignContent: 'center',
+      height: '100%', width: '100%',
+      alignItems: 'center',
   },
 });

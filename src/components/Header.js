@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import Notif from '../assets/Header/notif.svg'
 
 
 const Header = () => {
@@ -9,11 +10,8 @@ const Header = () => {
                 <Text style={styles.headerText}>
                     Santri Kita
                 </Text>
-                <TouchableOpacity>
-                    <Image 
-                        source={require('../assets/Header/notif.png')}
-                        style={styles.iconNotif}>
-                    </Image>
+                <TouchableOpacity style={styles.iconNotif} >
+                    <Notif />
                 </TouchableOpacity>
             </View>
         </View>

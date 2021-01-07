@@ -4,6 +4,8 @@ import {StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import Title from '../components/Title';
+import FilterBiaya from '../components/Biaya/FilterBiaya'
+import BiayaList from '../components/Biaya/BiayaList'
 
 const BiayaScreen = ({navigation}) => {
   return (
@@ -13,6 +15,8 @@ const BiayaScreen = ({navigation}) => {
         contentInsetAdjustmentBehavior="automatic"
         style={styles.bagianScroll}>
         <Title backRoute="Home" title="Biaya" />
+        <FilterBiaya />
+        <BiayaList />
       </ScrollView>
 
       <Navbar></Navbar>

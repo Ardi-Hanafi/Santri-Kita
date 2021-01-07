@@ -12,15 +12,16 @@ import {
   PelanggaranScreen,
   PrestasiScreen,
   SilabusScreen,
-  BiayaScreen,
   SilabusDetailScreen,
+  BiayaScreen,
+  BiayaDetailScreen,
 } from '../pages';
 
 const Stack = createStackNavigator();
 
 const MainApp = () => {
   return (
-    <Stack.Navigator initialRouteName="Aktivitas" headerMode="none">
+    <Stack.Navigator initialRouteName="Home" headerMode="none">
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Kesehatan" component={KesehatanScreen} />
@@ -30,6 +31,7 @@ const MainApp = () => {
       <Stack.Screen name="Silabus" component={SilabusScreen} />
       <Stack.Screen name="SilabusDetail" component={SilabusDetailScreen} />
       <Stack.Screen name="Biaya" component={BiayaScreen} />
+      <Stack.Screen name="BiayaDetail" component={BiayaDetailScreen} />
     </Stack.Navigator>
   );
 };

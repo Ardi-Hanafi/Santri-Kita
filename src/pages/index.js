@@ -7,8 +7,9 @@ import AktivitasScreen from './AktivitasScreen';
 import PelanggaranScreen from './PelanggaranScreen';
 import PrestasiScreen from './PrestasiScreen';
 import SilabusScreen from './SilabusScreen';
-import BiayaScreen from './BiayaScreen';
 import SilabusDetailScreen from './SilabusDetailScreen';
+import BiayaScreen from './BiayaScreen';
+import BiayaDetailScreen from './BiayaDetailScreen';
 
 export {
   HomeScreen,
@@ -20,6 +21,7 @@ export {
   PelanggaranScreen,
   PrestasiScreen,
   SilabusScreen,
+  SilabusDetailScreen,
   BiayaScreen,
-  SilabusDetailScreen
+  BiayaDetailScreen,
 };
