@@ -12,7 +12,7 @@ const SplashScreen = ({ navigation }) => {
     
     return (
         <SafeAreaView style={styles.pageArea}>
-            <Text style={styles.title} >SEPLAAZZZ.....</Text>
+            <Text style={styles.title} >Santri Kita</Text>
         </SafeAreaView>
     )
 }
@@ -27,8 +27,11 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: 'center',
-        fontSize: 30,
-        fontWeight: 'bold',
-        color: '#fff',
+        fontFamily: 'Poppins',
+        fontSize: 43,
+        fontStyle: 'normal',
+        fontWeight: '500',
+        lineHeight: 64,
+        color: '#FAFAFA',
     },
 })
