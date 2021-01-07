@@ -18,7 +18,7 @@ const BiayaDetailList = () => {
     const Item = ({status, keperluan, biaya, total, catatan}) => (
         <View style={{ alignItems:'center' }} >
           <View style={styles.container} >
-            <View style={{ flexDirection:'row', alignItems:'center' }} >
+            <View style={{ flexDirection:'row', alignItems:'center', marginBottom:15 }} >
               <BelumLunas width={30} height={30} /> 
               <Text style={{...styles.text, marginLeft:5}} >{status}</Text>
             </View>
@@ -60,8 +60,10 @@ const styles = StyleSheet.create({
         marginVertical: 15,
         paddingVertical: 15,
         paddingHorizontal: 25,
-        borderRadius: 20,
         alignItems: 'center',
+        borderRadius: 15,
+        borderWidth: 1,
+        borderColor: '#D1D5DB',
         // shadow
         shadowColor: '#999999',
         shadowOffset: {
@@ -70,7 +72,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        elevation: 3,
+        elevation: 2,
         },
         text: {
             color: '#52525B',
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
             flexDirection:'row', 
             alignItems:'center', 
             justifyContent:'space-between',
-            marginVertical: 15,
+            // marginVertical: 15,
         },
         total:{
             width:'100%', height: 45,
