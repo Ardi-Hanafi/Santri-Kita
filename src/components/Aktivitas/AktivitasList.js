@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  Text,
-} from 'react-native';
+import {View, FlatList, StyleSheet, Text} from 'react-native';
 
 const DATA = [
   {
@@ -13,27 +8,42 @@ const DATA = [
     date: '18:00 18/12/2020',
   },
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28b',
+    id: 'bd7acbea-c1b1-46c',
     title: 'Membaca Alquran',
     date: '18:00 18/12/2020',
   },
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28',
+    id: 'bd7acbea-c1b1-46c2-',
     title: 'Membaca Alquran',
     date: '18:00 18/12/2020',
   },
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb2',
+    id: 'bd7acbea-c1b1-46c2-ae',
     title: 'Membaca Alquran',
     date: '18:00 18/12/2020',
   },
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb',
+    id: 'bd7acbea-c1b1-46c2-aed',
     title: 'Membaca Alquran',
     date: '18:00 18/12/2020',
   },
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53ab',
+    id: 'bd7acbea-c1b1-46c2-a',
+    title: 'Membaca Alquran',
+    date: '18:00 18/12/2020',
+  },
+  {
+    id: 'bd7acbea-c1b1--aed',
+    title: 'Membaca Alquran',
+    date: '18:00 18/12/2020',
+  },
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5',
+    title: 'Membaca Alquran',
+    date: '18:00 18/12/2020',
+  },
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-',
     title: 'Membaca Alquran',
     date: '18:00 18/12/2020',
   },
@@ -42,8 +52,8 @@ const DATA = [
 const SilabusList = () => {
   const Item = ({title, date}) => (
     <View style={styles.container}>
-      <Text style={{ color: '#71717A' }}>{title}</Text>
-      <Text style={{ color: '#A1A1AA'}}>{title}</Text>
+      <Text style={{color: '#71717A'}}>{title}</Text>
+      <Text style={{color: '#A1A1AA'}}>{title}</Text>
     </View>
   );
 
