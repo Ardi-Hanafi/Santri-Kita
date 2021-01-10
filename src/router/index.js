@@ -38,9 +38,9 @@ const MainApp = () => {
 
 const Router = () => {
   return (
-    <Stack.Navigator initialRouteName="Splash" headerMode="none">
-      {/* <Stack.Screen name="Splash" component={SplashScreen} />
-      <Stack.Screen name="Login" component={LoginScreen} /> */}
+    <Stack.Navigator initialRouteName="MainApp" headerMode="none">
+      <Stack.Screen name="Splash" component={SplashScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="MainApp" component={MainApp} />
     </Stack.Navigator>
   );
