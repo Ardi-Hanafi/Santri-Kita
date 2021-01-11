@@ -1,68 +1,35 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, FlatList, StyleSheet, Text} from 'react-native';
+import {useQuery, gql} from '@apollo/client';
 
-
-// [
-//   {
-//     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-//     title: 'Membaca Alquran',
-//     date: '18:00 18/12/2020',
-//   },
-//   {
-//     id: 'bd7acbea-c1b1-46c',
-//     title: 'Membaca Alquran',
-//     date: '18:00 18/12/2020',
-//   },
-//   {
-//     id: 'bd7acbea-c1b1-46c2-',
-//     title: 'Membaca Alquran',
-//     date: '18:00 18/12/2020',
-//   },
-//   {
-//     id: 'bd7acbea-c1b1-46c2-ae',
-//     title: 'Membaca Alquran',
-//     date: '18:00 18/12/2020',
-//   },
-//   {
-//     id: 'bd7acbea-c1b1-46c2-aed',
-//     title: 'Membaca Alquran',
-//     date: '18:00 18/12/2020',
-//   },
-//   {
-//     id: 'bd7acbea-c1b1-46c2-a',
-//     title: 'Membaca Alquran',
-//     date: '18:00 18/12/2020',
-//   },
-//   {
-//     id: 'bd7acbea-c1b1--aed',
-//     title: 'Membaca Alquran',
-//     date: '18:00 18/12/2020',
-//   },
-//   {
-//     id: 'bd7acbea-c1b1-46c2-aed5',
-//     title: 'Membaca Alquran',
-//     date: '18:00 18/12/2020',
-//   },
-//   {
-//     id: 'bd7acbea-c1b1-46c2-aed5-',
-//     title: 'Membaca Alquran',
-//     date: '18:00 18/12/2020',
-//   },
-// ];
+const EXCHANGE_RATES = gql`
+  query {
+    students {
+      id
+      nama
+      kelas {
+        kelas
+      }
+    }
+  }
+`;
 
 export default AktivitasList = () => {
-  const [data,setData] = useState([]);
-  
-  useEffect(()=> {
-    fetch('https://reqres.in/api/users?page=2')
-      .then((response) => response.json())
-      .then((json) => {
-        setData(json.data)
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  })
+  // const [data,setData] = useState([]);
+  const {loading, error, data} = useQuery(EXCHANGE_RATES,{poolInterval:2000});
+
+  console.log(data);
+
+  // useEffect(()=> {
+  //   fetch('https://reqres.in/api/users?page=2')
+  //     .then((response) => response.json())
+  //     .then((json) => {
+  //       setData(json.data)
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // })
 
   const Item = ({title, date}) => (
     <View style={styles.container}>
@@ -71,17 +38,22 @@ export default AktivitasList = () => {
     </View>
   );
 
-  const renderItem = ({item}) => <Item title={item.first_name} date={item.last_name}/>;
-
-  return (
-    <>
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-    </>
+  const renderItem = ({item}) => (
+    <Item title={item.id} date={item.nama} />
   );
+
+  if(loading) return(<Text>Loading</Text>)
+  if(data){
+    return (
+      <>
+        <FlatList
+          data={data.students}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+      </>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
