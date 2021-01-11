@@ -1,48 +1,123 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useReducer, useState, useEffect, useMemo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Assets, createStackNavigator} from '@react-navigation/stack';
+import {SplashScreen, LoginScreen} from '../pages';
+import MainRouter from './MainRouter';
+import {AuthContext} from '../components/Context';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
-  HomeScreen,
-  ProfileScreen,
-  SplashScreen,
-  LoginScreen,
-  KesehatanScreen,
-  AktivitasScreen,
-  PelanggaranScreen,
-  PrestasiScreen,
-  SilabusScreen,
-  SilabusDetailScreen,
-  BiayaScreen,
-  BiayaDetailScreen,
-} from '../pages';
+  ApolloProvider,
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+} from '@apollo/client';
+import {setContext} from '@apollo/client/link/context';
 
 const Stack = createStackNavigator();
 
-const MainApp = () => {
-  return (
-    <Stack.Navigator initialRouteName="Home" headerMode="none">
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
-      <Stack.Screen name="Kesehatan" component={KesehatanScreen} />
-      <Stack.Screen name="Aktivitas" component={AktivitasScreen} />
-      <Stack.Screen name="Pelanggaran" component={PelanggaranScreen} />
-      <Stack.Screen name="Prestasi" component={PrestasiScreen} />
-      <Stack.Screen name="Silabus" component={SilabusScreen} />
-      <Stack.Screen name="SilabusDetail" component={SilabusDetailScreen} />
-      <Stack.Screen name="Biaya" component={BiayaScreen} />
-      <Stack.Screen name="BiayaDetail" component={BiayaDetailScreen} />
-    </Stack.Navigator>
-  );
+const initialLoginState = {
+  isLoading: true,
+  userName: null,
+  userToken: null,
 };
 
+const jwt = undefined;
+const link = createHttpLink({
+  uri: `https://avocado-api-test.herokuapp.com/graphql`,
+  headers: jwt
+    ? {
+        authorization: `Bearer ${jwt}`,
+      }
+    : undefined,
+});
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link,
+});
+
 const Router = () => {
+  
+  const loginReducer = (prevState, action) => {
+    switch (action.type) {
+      case 'RETRIEVE_TOKEN':
+        return {
+          ...prevState,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case 'LOGIN':
+        return {
+          ...prevState,
+          userName: action.id,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case 'LOGOUT':
+        return {
+          ...prevState,
+          userName: null,
+          userToken: null,
+          isLoading: false,
+        };
+    }
+  };
+
+  const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
+
+  const authContext = useMemo(() => ({
+    signIn: async (jwt,userName) => {
+      if (jwt) {
+        try {
+          await AsyncStorage.setItem('userToken', jwt);
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      dispatch({type: 'LOGIN', id: userName, token: jwt});
+    },
+    signOut: async () => {
+      try {
+        await AsyncStorage.removeItem('userToken');
+      } catch (e) {
+        console.log(e);
+      }
+      dispatch({type: 'LOGOUT'});
+    },
+  }));
+
+  useEffect(() => {
+    setTimeout(async () => {
+      let userToken = null;
+      try {
+        userToken = await AsyncStorage.getItem('userToken');
+      } catch (e) {
+        console.log(e);
+      }
+      dispatch({type: 'RETRIEVE_TOKEN', token: userToken});
+    }, 3000);
+  });
+
+  function handleSplash() {
+    if (loginState.isLoading) {
+      return <Stack.Screen name="Splash" component={SplashScreen} />;
+    }
+  }
+
   return (
-    <Stack.Navigator initialRouteName="MainApp" headerMode="none">
-      <Stack.Screen name="Splash" component={SplashScreen} />
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="MainApp" component={MainApp} />
-    </Stack.Navigator>
+    <AuthContext.Provider value={authContext}>
+      <ApolloProvider client={client}>
+        <Stack.Navigator initialRouteName="Splash" headerMode="none">
+          {handleSplash()}
+          {loginState.userToken === null ? (
+            <Stack.Screen name="Login" component={LoginScreen} />
+          ) : (
+            <Stack.Screen name="MainApp" component={MainRouter} />
+          )}
+        </Stack.Navigator>
+      </ApolloProvider>
+    </AuthContext.Provider>
   );
 };
 
