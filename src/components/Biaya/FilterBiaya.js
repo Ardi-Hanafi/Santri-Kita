@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {TouchableOpacity, Text, StyleSheet, View, Image} from 'react-native';
-import Lunas from './Lunas.svg'
+import Lunas from './Lunas.svg';
+import Iconmci from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const data = [
   {
@@ -21,7 +22,8 @@ const Item = (Props) => {
         setActive(!active);
       }}>
       <View style={[active ? styles.itemAktif : styles.item]}>
-          <Lunas width={15} height={15} style={{marginRight: 5}} />
+          <Iconmci name='check-circle-outline' size={18} color="#fff" style={{marginRight: 5}} />
+          {/* <Lunas width={15} height={15} style={{marginRight: 5}} /> */}
         <Text style={{ color:'#fff' }}>{Props.title}</Text>
       </View>
     </TouchableOpacity>

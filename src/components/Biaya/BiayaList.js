@@ -10,6 +10,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import Lunas from './Lunas.svg'
 import BelumLunas from './BelumLunas.svg'
+import Iconft from 'react-native-vector-icons/Feather';
 
 const DATA = [
   {
@@ -47,7 +48,8 @@ const BiayaList = () => {
   const Item = ({mouth, date, jumlah}) => (
     <TouchableOpacity onPress={()=>handleClick()} style={styles.container}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }} >
-        <BelumLunas width={30} height={30} />
+        <Iconft name="alert-circle" size={28} color="#71717A" />
+        {/* <BelumLunas width={30} height={30} /> */}
         <View style={{ marginLeft:10 }} >
             <Text style={styles.mouth}>Bulan {mouth}</Text>
             <Text style={styles.date}>{date}</Text>

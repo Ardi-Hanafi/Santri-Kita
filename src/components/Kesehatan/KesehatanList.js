@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, View, FlatList, StyleSheet, Text} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -40,11 +41,16 @@ const SilabusList = () => {
   const Item = ({title, date}) => (
     <View style={styles.container}>
       <View style={{flexDirection: 'row',alignItems: 'center'}}>
-        <Image
+        <Icon 
+          name='heart' 
+          size={35} color="#71717A" 
+          style={{marginRight:10}}
+        />
+        {/* <Image
           style={{width: 35, height: 35, marginRight: 10}}
           source={require('../../assets/Kesehatan/umum.png')}
           resizeMode="contain"
-        />
+        /> */}
         <Text style={{ color:'#71717A' }}>{title}</Text>
       </View>
       <Text style={{ color:'#A1A1AA' }}>{date}</Text>

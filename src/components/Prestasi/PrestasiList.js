@@ -1,6 +1,7 @@
 import React from 'react';
 import {Image, View, FlatList, StyleSheet, Text} from 'react-native';
 import Medal from './medal.svg'
+import Iconi from 'react-native-vector-icons/Ionicons';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -51,10 +52,11 @@ const PrestasiList = () => {
   const Item = ({title, date}) => (
     <View style={styles.container}>
       <View style={{flexDirection: 'row',alignItems: 'center'}}>
-        <Medal height={25} width={25} />
-        <Text style={{ color:'#52525B', marginLeft:10 }}>{title}</Text>
+        <Iconi name='medal' size={28} color='#52525B' />
+        {/* <Medal height={25} width={25} /> */}
+        <Text style={{ color:'#52525B', marginLeft:10, fontSize: 15 }}>{title}</Text>
       </View>
-      <Text style={{ color:'#52525B' }}>{date}</Text>
+      <Text style={{ color:'#71717A', fontSize: 13 }}>{date}</Text>
     </View>
   );
 

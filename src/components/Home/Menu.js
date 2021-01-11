@@ -10,20 +10,21 @@ const Menu = (Props) => {
   }
 
   return (
-    <View style={{alignItems: 'center'}}>
+    
       <TouchableOpacity
         onPress={() => {
           handleClick();
         }}
         style={styles.container}>
-        <Image
+        {Props.iconSvg}
+        {/* <Image
           style={styles.tinyLogo}
           source={Props.imagePath}
           resizeMode="stretch"
-        />
+        /> */}
+        <Text style={{color: '#71717A'}}>{Props.labelText}</Text>
       </TouchableOpacity>
-      <Text style={{color: '#71717A'}}>{Props.labelText}</Text>
-    </View>
+    
   );
 };
 
@@ -32,7 +33,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 80,
-    width: 80,
+    // width: 80,
+    flex: 1,
     backgroundColor: '#fff',
     // shadow
     shadowColor: '#999999',

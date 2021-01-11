@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import BelumLunas from './BelumLunas.svg'
+import Iconft from 'react-native-vector-icons/Feather';
 
 const DATA = [
     {
@@ -19,7 +20,8 @@ const BiayaDetailList = () => {
         <View style={{ alignItems:'center' }} >
           <View style={styles.container} >
             <View style={{ flexDirection:'row', alignItems:'center', marginBottom:15 }} >
-              <BelumLunas width={30} height={30} /> 
+              <Iconft name="alert-circle" size={28} color="#71717A" />
+              {/* <BelumLunas width={30} height={30} />  */}
               <Text style={{...styles.text, marginLeft:5}} >{status}</Text>
             </View>
             <View style={styles.rincian} >

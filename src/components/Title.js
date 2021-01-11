@@ -32,9 +32,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: 'Roboto',
-    fontWeight: 'bold',
+
+    // fontWeight: 'bold',
     color: '#71717A',
     textAlign: 'center',
     flex: 1,
