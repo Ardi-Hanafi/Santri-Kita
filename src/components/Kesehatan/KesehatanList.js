@@ -1,8 +1,8 @@
 import React from 'react';
 import {Image, View, FlatList, StyleSheet, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 import {useNavigation} from '@react-navigation/native';
+import { theme } from '../theme'
 
 const DATA = [
   {
@@ -43,17 +43,12 @@ const SilabusList = () => {
       <View style={{flexDirection: 'row',alignItems: 'center'}}>
         <Icon 
           name='heart' 
-          size={35} color="#71717A" 
+          size={30} color="#71717A" 
           style={{marginRight:10}}
         />
-        {/* <Image
-          style={{width: 35, height: 35, marginRight: 10}}
-          source={require('../../assets/Kesehatan/umum.png')}
-          resizeMode="contain"
-        /> */}
-        <Text style={{ color:'#71717A' }}>{title}</Text>
+        <Text style={{ color: theme.colors.gray5 }}>{title}</Text>
       </View>
-      <Text style={{ color:'#A1A1AA' }}>{date}</Text>
+      <Text style={{ color: theme.colors.gray4 }}>{date}</Text>
     </View>
   );
 
@@ -79,7 +74,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 25,
     paddingVertical: 20,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.gray1,
     borderRadius: 8,
   },
 });

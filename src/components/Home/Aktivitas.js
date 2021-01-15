@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
-
 import {useNavigation} from '@react-navigation/native';
+import { theme } from '../theme';
 
 const DATA = [
   {
@@ -28,8 +28,8 @@ const DATA = [
 
 const Item = ({title, date, uji}) => (
   <View style={styles.item}>
-    <Text>{title}</Text>
-    <Text>{date}</Text>
+    <Text style={styles.kegiatan} >{title}</Text>
+    <Text style={styles.waktu} >{date}</Text>
   </View>
 );
 
@@ -54,7 +54,10 @@ const Aktivitas = () => {
           handleClick();
         }}
         style={styles.button}>
-        <Text style={{color: '#fff'}}>Selengkapnya</Text>
+        <Text style={{
+          color: '#fff',
+          fontSize: 16
+        }}>Selengkapnya</Text>
       </TouchableOpacity>
     </>
   );
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 10,
     fontSize: 20,
-    color: '#828282',
+    color: theme.colors.gray6,
   },
   item: {
     flexDirection: 'row',
@@ -79,6 +82,14 @@ const styles = StyleSheet.create({
     marginVertical: 4,
     marginHorizontal: 16,
     borderRadius: 8,
+  },
+  kegiatan: {
+    fontSize: 14,
+    color: theme.colors.gray5,
+  },
+  waktu: {
+    fontSize: 14,
+    color: theme.colors.gray5
   },
   button: {
     alignItems: 'center',

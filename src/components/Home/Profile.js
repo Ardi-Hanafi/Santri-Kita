@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, Text, View, StyleSheet} from 'react-native';
+import { theme } from '../theme'
 
 const Profile = () => {
   return (
@@ -43,12 +44,12 @@ const styles = StyleSheet.create({
     marginTop: 15,
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#27AE60',
+    color: theme.colors.brand5
   },
   info:{
     marginTop: 5,
     // fontSize: 15,
-    color: '#27AE60',
+    color: theme.colors.gray5,
   }
 });
 

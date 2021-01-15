@@ -7,6 +7,8 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
+import { theme } from '../theme';
+import Iconet from 'react-native-vector-icons/Entypo';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -37,12 +39,8 @@ const SilabusList = () => {
   }
   const Item = ({title, date, uji}) => (
     <TouchableOpacity onPress={()=>handleClick()} style={styles.container}>
-      <Text style={{ color:'#71717A' }}>{title}</Text>
-      <Image
-        style={{width: 40, height: 40}}
-        source={require('../../assets/Silabus/mdi_chevron_right.png')}
-        resizeMode="contain"
-      />
+      <Text style={{ color:'#333333' }}>{title}</Text>
+      <Iconet name='chevron-right' size={34} color="#333333" />
     </TouchableOpacity>
   );
   
@@ -69,7 +67,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 25,
-    paddingVertical: 25,
+    paddingVertical: 20,
     backgroundColor: '#fff',
     borderRadius: 8,
     // shadow
