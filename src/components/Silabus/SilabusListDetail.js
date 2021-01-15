@@ -48,9 +48,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 25,
-    paddingVertical: 20,
-    backgroundColor: '#F4F4F5',
+    paddingVertical: 15,
+    backgroundColor: '#FFF',
     borderRadius: 8,
+    // shadow
+    shadowColor: '#999999',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 2,
   },
 });
 

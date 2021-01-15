@@ -27,14 +27,9 @@ const Item = (Props) => {
       <View style={[active ? styles.itemAktif : styles.item]}>
         <Icon 
           name='heart' 
-          size={20} color="#fff" 
+          size={15} color="#fff" 
           style={{marginRight:5}}
         />
-        {/* <Image
-          style={{width: 20, height: 20,marginRight:5}}
-          source={require('../../assets/Kesehatan/umum-white.png')}
-          resizeMode="contain"
-        /> */}
         <Text style={{ color:'#fff' }}>{Props.title}</Text>
       </View>
     </TouchableOpacity>
