@@ -3,7 +3,7 @@ import React, {useReducer, useState, useEffect, useMemo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Assets, createStackNavigator} from '@react-navigation/stack';
 import {SplashScreen, LoginScreen} from '../pages';
-import MainRouter from './MainRouter';
+import ScreenRouter from './ScreenRouter';
 import {AuthContext} from '../components/Context';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -129,7 +129,7 @@ const Router = () => {
           {loginState.userToken === null ? (
             <Stack.Screen name="Login" component={LoginScreen} />
           ) : (
-            <Stack.Screen name="MainApp" component={MainRouter} />
+            <Stack.Screen name="MainApp" component={ScreenRouter} />
           )}
         </Stack.Navigator>
       </ApolloProvider>
