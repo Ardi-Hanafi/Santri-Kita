@@ -15,7 +15,7 @@ export default SplashScreen
 const styles = StyleSheet.create({
     pageArea: {
         height: '100%', width: '100%',
-        backgroundColor: theme.colors.green1,
+        backgroundColor: theme.colors.brand5,
         justifyContent:'center'
     },
     title: {

@@ -108,7 +108,7 @@ const Router = () => {
   return (
     <AuthContext.Provider value={authContext}>
       <ApolloProvider client={client}>
-        <Stack.Navigator initialRouteName="Splash" headerMode="none">
+        <Stack.Navigator initialRouteName="MainApp" headerMode="none">
           {handleSplash()}
           {loginState.userToken === null ? (
             <Stack.Screen name="Login" component={LoginScreen} />
