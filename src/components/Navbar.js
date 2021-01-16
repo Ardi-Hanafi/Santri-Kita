@@ -1,6 +1,6 @@
 import React, {useState,useContext} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import Home from '../assets/Navbar/home.svg';
 import HomeActive from '../assets/Navbar/homeActive.svg';
 import Profile from '../assets/Navbar/profile.svg';
@@ -9,8 +9,6 @@ import {ActivePageContext} from './Context';
 
 const Navbar = () => {
   const navigation = useNavigation();
-  const isFocused = useIsFocused();
-  const [active, setActive] = useState(true);
   const {setContext, getContext} = React.useContext(ActivePageContext)
   return (
 
@@ -22,16 +20,13 @@ const Navbar = () => {
           // backgroundColor: 'blue',
         }}>
           {[getContext() === "Home" ? <HomeActive/> : <Home/>]}
-          {/* {isFocused ? <HomeActive/> : <Home/>} */}
         </TouchableOpacity>
         <TouchableOpacity onPress={ () => {navigation.navigate('Profile'), setContext("Profile")} } style={{
           paddingHorizontal: 20, paddingVertical:5,
           // backgroundColor: 'blue',
         }}>
           {[getContext() === "Profile"  ? <ProfileActive/> : <Profile/>]}
-          {/* {isFocused ? <ProfileActive/> : <Profile/> } */}
         </TouchableOpacity>
-
       </View>
     </View>
   )
