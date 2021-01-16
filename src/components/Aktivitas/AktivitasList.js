@@ -8,6 +8,7 @@ const GET_ACTIVITIES = gql`
       student{
         kelas {
           lesson_histories{
+            id
             pelajaran
             tanggal
           }
@@ -25,7 +26,7 @@ const Item = ({title, date}) => (
 );
 
 const renderItem = ({item}) => (
-  <Item title={item.pelajaran} date={item.tanggal} />
+  <Item key={item.id} title={item.pelajaran} date={item.tanggal} />
 );
 
 const AktivitasList = () => {
