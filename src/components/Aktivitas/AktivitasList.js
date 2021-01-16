@@ -2,52 +2,45 @@ import React, {useState, useEffect} from 'react';
 import {View, FlatList, StyleSheet, Text} from 'react-native';
 import {useQuery, gql} from '@apollo/client';
 
-const EXCHANGE_RATES = gql`
-  query {
-    students {
-      id
-      nama
-      kelas {
-        kelas
+const GET_ACTIVITIES = gql`
+  query Get_Activities($id: ID!) {
+    user(id: $id){
+      student{
+        kelas {
+          lesson_histories{
+            pelajaran
+            tanggal
+          }
+        }
       }
     }
   }
 `;
 
-export default AktivitasList = () => {
-  // const [data,setData] = useState([]);
-  const {loading, error, data} = useQuery(EXCHANGE_RATES,{poolInterval:2000});
+const Item = ({title, date}) => (
+  <View style={styles.container}>
+    <Text style={{color: '#71717A'}}>{title}</Text>
+    <Text style={{color: '#A1A1AA'}}>{date}</Text>
+  </View>
+);
 
-  console.log(data);
+const renderItem = ({item}) => (
+  <Item title={item.pelajaran} date={item.tanggal} />
+);
 
-  // useEffect(()=> {
-  //   fetch('https://reqres.in/api/users?page=2')
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //       setData(json.data)
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // })
+const AktivitasList = () => {
 
-  const Item = ({title, date}) => (
-    <View style={styles.container}>
-      <Text style={{color: '#71717A'}}>{title}</Text>
-      <Text style={{color: '#A1A1AA'}}>{date}</Text>
-    </View>
-  );
-
-  const renderItem = ({item}) => (
-    <Item title={item.id} date={item.nama} />
-  );
+  const {loading, error, data} = useQuery(GET_ACTIVITIES,{
+    variables:{id:"2"}
+  });
 
   if(loading) return(<Text>Loading</Text>)
+  if(error) return(<Text>Error</Text>)
   if(data){
     return (
       <>
         <FlatList
-          data={data.students}
+          data={data.user.student.kelas.lesson_histories}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
@@ -68,3 +61,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F4F5',
   },
 });
+
+export default AktivitasList;
