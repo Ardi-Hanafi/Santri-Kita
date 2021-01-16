@@ -1,33 +1,26 @@
 import 'react-native-gesture-handler';
-import React, {useReducer, useState, useEffect, useMemo} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {Assets, createStackNavigator} from '@react-navigation/stack';
+import React,{useReducer, useEffect, useMemo} from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
 import {SplashScreen, LoginScreen} from '../pages';
 import ScreenRouter from './ScreenRouter';
 import {AuthContext} from '../components/Context';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import {setContext} from '@apollo/client/link/context';
 import {
   ApolloProvider,
   ApolloClient,
   InMemoryCache,
   createHttpLink,
 } from '@apollo/client';
-import {setContext} from '@apollo/client/link/context';
 
 const Stack = createStackNavigator();
 
-const initialLoginState = {
-  isLoading: true,
-  userName: null,
-  userToken: null,
-};
-
+// endpoint api
 const httpLink = createHttpLink({
   uri: `https://avocado-api-test.herokuapp.com/graphql`,
 });
 
-const authLink = setContext(async(_, { headers }) => {
+const authLink = setContext(async (_, {headers}) => {
   // get the authentication token from local storage if it exists
   const token = await AsyncStorage.getItem('userToken');
   console.log(token);
@@ -35,9 +28,9 @@ const authLink = setContext(async(_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    }
-  }
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
 });
 
 const client = new ApolloClient({
@@ -45,41 +38,40 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
 });
 
-const Router = () => {
-  
-  const loginReducer = (prevState, action) => {
-    switch (action.type) {
-      case 'RETRIEVE_TOKEN':
-        return {
-          ...prevState,
-          userName: action.id,
-          userToken: action.token,
-          isLoading: false,
-        };
-      case 'LOGIN':
-        return {
-          ...prevState,
-          userName: action.id,
-          userToken: action.token,
-          isLoading: false,
-        };
-      case 'LOGOUT':
-        return {
-          ...prevState,
-          userName: null,
-          userToken: null,
-          isLoading: false,
-        };
-    }
-  };
+const initialLoginState = {
+  isLoading: true,
+  userName: null,
+  userToken: null,
+};
 
+const loginReducer = (prevState, action) => {
+  switch (action.type) {
+    case 'RETRIEVE_TOKEN':
+      return {
+        userName: action.id,
+        userToken: action.token,
+        isLoading: false,
+      };
+    case 'LOGIN':
+      return {
+        userName: action.id,
+        userToken: action.token,
+        isLoading: false,
+      };
+    case 'LOGOUT':
+      return {
+        userName: null,
+        userToken: null,
+        isLoading: false,
+      };
+  }
+};
+
+const Router = () => {
   const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
 
   const authContext = useMemo(() => ({
-    getAuth: () =>{
-      return loginState;
-    },
-    signIn: async (jwt,userName) => {
+    signIn: async (jwt, userName) => {
       if (jwt) {
         try {
           await AsyncStorage.setItem('userToken', jwt);
@@ -106,15 +98,18 @@ const Router = () => {
       let userToken = null;
       let userName = null;
       try {
+        // get userToken and id from AsyncStorage
         userToken = await AsyncStorage.getItem('userToken');
         userName = await AsyncStorage.getItem('id');
       } catch (e) {
         console.log(e);
       }
-      dispatch({type: 'RETRIEVE_TOKEN', id:userName, token: userToken});
+      // Assign state userName and userToken
+      dispatch({type: 'RETRIEVE_TOKEN', id: userName, token: userToken});
     }, 3000);
   });
 
+  // return login if isLoading true
   function handleSplash() {
     if (loginState.isLoading) {
       return <Stack.Screen name="Splash" component={SplashScreen} />;
@@ -138,5 +133,3 @@ const Router = () => {
 };
 
 export default Router;
-
-const styles = StyleSheet.create({});
