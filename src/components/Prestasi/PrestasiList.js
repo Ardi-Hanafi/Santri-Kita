@@ -2,70 +2,47 @@ import React from 'react';
 import {Image, View, FlatList, StyleSheet, Text} from 'react-native';
 import Medal from './medal.svg'
 import Iconi from 'react-native-vector-icons/Ionicons';
-
 import {useNavigation} from '@react-navigation/native';
+import {useQuery, gql} from '@apollo/client';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Juara 1 Qori’',
-    date: '18/12/2020',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28b',
-    title: 'Juara 1 Qori’',
-    date: '18/12/2020',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28',
-    title: 'Juara 1 Qori’',
-    date: '18/12/2020',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb2',
-    title: 'Juara 1 Qori’',
-    date: '18/12/2020',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb',
-    title: 'Juara 1 Qori’',
-    date: '18/12/2020',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53ab',
-    title: 'Juara 1 Qori’',
-    date: '18/12/2020',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abc',
-    title: 'Juara 1 Qori’',
-    date: '18/12/2020',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abs',
-    title: 'Juara 1 Qori’',
-    date: '18/12/2020',
-  },
-];
+const GET_ACTIVITIES = gql`
+  query Get_Activities($id: ID!) {
+    user(id: $id){
+      student{
+        achievements{
+          id
+          prestasi
+          kegiatan_lomba
+          tahun
+        }
+      }
+    }
+  }
+`;
+
+const Item = ({title, date}) => (
+  <View style={styles.container}>
+    <View style={{flexDirection: 'row',alignItems: 'center'}}>
+      <Iconi name='medal' size={28} color='#52525B' />
+      <Text style={{ color:'#52525B', marginLeft:10, fontSize: 15 }}>{title}</Text>
+    </View>
+    <Text style={{ color:'#71717A', fontSize: 13 }}>{date}</Text>
+  </View>
+);
+
+const renderItem = ({item}) => <Item key={item.id} title={item.prestasi} date={item.tahun}/>;
 
 const PrestasiList = () => {
-  const Item = ({title, date}) => (
-    <View style={styles.container}>
-      <View style={{flexDirection: 'row',alignItems: 'center'}}>
-        <Iconi name='medal' size={28} color='#52525B' />
-        {/* <Medal height={25} width={25} /> */}
-        <Text style={{ color:'#52525B', marginLeft:10, fontSize: 15 }}>{title}</Text>
-      </View>
-      <Text style={{ color:'#71717A', fontSize: 13 }}>{date}</Text>
-    </View>
-  );
+  const {loading, error, data} = useQuery(GET_ACTIVITIES,{
+    variables:{id:"2"}
+  });
 
-  const renderItem = ({item}) => <Item title={item.title} date={item.date}/>;
-
+  if(loading) return(<Text>Loading</Text>)
+  if(error) return(<Text>Error</Text>)
   return (
     <>
       <FlatList
-        data={DATA}
+        data={data.user.student.achievements}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
