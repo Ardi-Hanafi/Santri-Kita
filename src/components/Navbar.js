@@ -1,31 +1,37 @@
-import React from 'react';
+import React, {useState,useContext} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-
+import { useNavigation, useIsFocused } from '@react-navigation/native';
+import Home from '../assets/Navbar/home.svg';
+import HomeActive from '../assets/Navbar/homeActive.svg';
+import Profile from '../assets/Navbar/profile.svg';
+import ProfileActive from '../assets/Navbar/profileActive.svg';
+import {ActivePageContext} from './Context';
 
 const Navbar = () => {
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
+  const [active, setActive] = useState(true);
+  const {setContext, getContext} = React.useContext(ActivePageContext)
   return (
+
     <View style={styles.containerNavbar}>
       <View style={styles.containerNavbar2}>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')} style={{
-          paddingHorizontal: 20, paddingVertical:10,
+        <TouchableOpacity onPress={ () => {
+          navigation.navigate('Home'), setContext('Home')} } style={{
+          paddingHorizontal: 20, paddingVertical:5,
           // backgroundColor: 'blue',
         }}>
-          <Image
-            source={require('../assets/Navbar/home.png')}
-            style={{ ...styles.iconNavbar, width:24 }}
-          ></Image>
+          {[getContext() === "Home" ? <HomeActive/> : <Home/>]}
+          {/* {isFocused ? <HomeActive/> : <Home/>} */}
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}style={{
-          paddingHorizontal: 20, paddingVertical:10,
+        <TouchableOpacity onPress={ () => {navigation.navigate('Profile'), setContext("Profile")} } style={{
+          paddingHorizontal: 20, paddingVertical:5,
           // backgroundColor: 'blue',
         }}>
-        <Image
-            source={require('../assets/Navbar/profile.png')}
-            style={{ ...styles.iconNavbar, width:18 }}
-          ></Image>
+          {[getContext() === "Profile"  ? <ProfileActive/> : <Profile/>]}
+          {/* {isFocused ? <ProfileActive/> : <Profile/> } */}
         </TouchableOpacity>
+
       </View>
     </View>
   )
