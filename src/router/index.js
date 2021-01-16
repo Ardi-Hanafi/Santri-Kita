@@ -6,6 +6,7 @@ import {SplashScreen, LoginScreen} from '../pages';
 import MainRouter from './MainRouter';
 import {AuthContext} from '../components/Context';
 import AsyncStorage from '@react-native-community/async-storage';
+
 import {
   ApolloProvider,
   ApolloClient,
@@ -22,19 +23,26 @@ const initialLoginState = {
   userToken: null,
 };
 
-const jwt = undefined;
-const link = createHttpLink({
+const httpLink = createHttpLink({
   uri: `https://avocado-api-test.herokuapp.com/graphql`,
-  headers: jwt
-    ? {
-        authorization: `Bearer ${jwt}`,
-      }
-    : undefined,
+});
+
+const authLink = setContext(async(_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = await AsyncStorage.getItem('userToken');
+  console.log(token);
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  }
 });
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link,
+  link: authLink.concat(httpLink),
 });
 
 const Router = () => {
@@ -44,6 +52,7 @@ const Router = () => {
       case 'RETRIEVE_TOKEN':
         return {
           ...prevState,
+          userName: action.id,
           userToken: action.token,
           isLoading: false,
         };
@@ -67,10 +76,14 @@ const Router = () => {
   const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
 
   const authContext = useMemo(() => ({
+    getAuth: () =>{
+      return loginState;
+    },
     signIn: async (jwt,userName) => {
       if (jwt) {
         try {
           await AsyncStorage.setItem('userToken', jwt);
+          await AsyncStorage.setItem('id', userName);
         } catch (e) {
           console.log(e);
         }
@@ -80,6 +93,7 @@ const Router = () => {
     signOut: async () => {
       try {
         await AsyncStorage.removeItem('userToken');
+        await AsyncStorage.removeItem('id');
       } catch (e) {
         console.log(e);
       }
@@ -90,12 +104,14 @@ const Router = () => {
   useEffect(() => {
     setTimeout(async () => {
       let userToken = null;
+      let userName = null;
       try {
         userToken = await AsyncStorage.getItem('userToken');
+        userName = await AsyncStorage.getItem('id');
       } catch (e) {
         console.log(e);
       }
-      dispatch({type: 'RETRIEVE_TOKEN', token: userToken});
+      dispatch({type: 'RETRIEVE_TOKEN', id:userName, token: userToken});
     }, 3000);
   });
 
