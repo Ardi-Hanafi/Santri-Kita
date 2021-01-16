@@ -3,61 +3,54 @@ import {Image, View, FlatList, StyleSheet, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useNavigation} from '@react-navigation/native';
 import { theme } from '../theme'
+import {useQuery, gql} from '@apollo/client';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Pusing kepala',
-    date: '18:00 18/12/2020',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28b',
-    title: 'Pusing kepala',
-    date: '18:00 18/12/2020',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28',
-    title: 'Pusing kepala',
-    date: '18:00 18/12/2020',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb2',
-    title: 'Pusing kepala',
-    date: '18:00 18/12/2020',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb',
-    title: 'Pusing kepala',
-    date: '18:00 18/12/2020',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53ab',
-    title: 'Pusing kepala',
-    date: '18:00 18/12/2020',
-  },
-];
+const GET_MEDICAL = gql`
+  query Get_Medical($id: ID!) {
+    user(id: $id){
+      student{
+        medical_histories{
+          id
+          penyakit
+          keterangan
+          status
+          tanggal
+        }
+      }
+    }
+  }
+`;
 
-const SilabusList = () => {
-  const Item = ({title, date}) => (
-    <View style={styles.container}>
-      <View style={{flexDirection: 'row',alignItems: 'center'}}>
-        <Icon 
-          name='heart' 
-          size={30} color="#71717A" 
-          style={{marginRight:10}}
-        />
-        <Text style={{ color: theme.colors.gray5 }}>{title}</Text>
-      </View>
-      <Text style={{ color: theme.colors.gray4 }}>{date}</Text>
+const Item = ({title, date}) => (
+  <View style={styles.container}>
+    <View style={{flexDirection: 'row',alignItems: 'center'}}>
+      <Icon 
+        name='heart' 
+        size={30} color="#71717A" 
+        style={{marginRight:10}}
+      />
+      <Text style={{ color: theme.colors.gray5 }}>{title}</Text>
     </View>
-  );
+    <Text style={{ color: theme.colors.gray4 }}>{date}</Text>
+  </View>
+);
 
-  const renderItem = ({item}) => <Item title={item.title} date={item.date}/>;
+const renderItem = ({item}) => <Item key={item.id} title={item.penyakit} date={item.tanggal}/>;
+const SilabusList = () => {
+
+  const {loading, error, data} = useQuery(GET_MEDICAL,{
+    variables:{id:"2"}
+  });
+
+  if(loading) return(<Text>Loading</Text>)
+  if(error) {
+    console.log(error)
+    return(<Text>Error</Text>)}
 
   return (
     <>
       <FlatList
-        data={DATA}
+        data={data.user.student.medical_histories}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
