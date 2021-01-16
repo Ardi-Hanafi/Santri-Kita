@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, FlatList, StyleSheet, Text} from 'react-native';
+import { theme } from '../theme'
 
 const DATA = [
   {
@@ -22,7 +23,7 @@ const DATA = [
 
 const Item = ({title}) => (
   <View style={styles.container}>
-    <Text style={{color: '#71717A'}}>{title}</Text>
+    <Text style={{color: theme.colors.gray5}}>{title}</Text>
   </View>
 );
 
@@ -48,18 +49,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 25,
-    paddingVertical: 15,
-    backgroundColor: '#FFF',
+    paddingVertical: 10,
+    backgroundColor: theme.colors.gray1,
     borderRadius: 8,
-    // shadow
-    shadowColor: '#999999',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 2,
   },
 });
 

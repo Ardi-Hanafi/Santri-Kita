@@ -37,10 +37,10 @@ const SilabusList = () => {
   const handleClick = () => {
     navigation.navigate('SilabusDetail')
   }
-  const Item = ({title, date, uji}) => (
+  const Item = ({title}) => (
     <TouchableOpacity onPress={()=>handleClick()} style={styles.container}>
       <Text style={{ color:'#333333' }}>{title}</Text>
-      <Iconet name='chevron-right' size={34} color="#333333" />
+      <Iconet name='chevron-right' size={25} color="#333333" />
     </TouchableOpacity>
   );
   

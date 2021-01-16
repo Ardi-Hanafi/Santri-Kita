@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'space-between',
     borderRadius: 8,
+    backgroundColor: '#ffffff',
     // shadow
     shadowColor: '#999999',
     shadowOffset: {

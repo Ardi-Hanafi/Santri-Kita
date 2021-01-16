@@ -77,11 +77,11 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: '#F2F2F2',
+    backgroundColor: theme.colors.gray1,
     padding: 20,
     marginVertical: 4,
-    marginHorizontal: 16,
-    borderRadius: 8,
+    marginHorizontal: 25,
+    borderRadius: 7,
   },
   kegiatan: {
     fontSize: 14,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#27AE60',
     padding: 20,
     marginVertical: 4,
-    marginHorizontal: 16,
+    marginHorizontal: 25,
     borderRadius: 8,
   },
 });

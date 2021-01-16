@@ -8,32 +8,32 @@ const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     title: 'Pusing kepala',
-    date: '18:00 18/12/2020',
+    date: '18/12/2020',
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28b',
     title: 'Pusing kepala',
-    date: '18:00 18/12/2020',
+    date: '18/12/2020',
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28',
     title: 'Pusing kepala',
-    date: '18:00 18/12/2020',
+    date: '18/12/2020',
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb2',
     title: 'Pusing kepala',
-    date: '18:00 18/12/2020',
+    date: '18/12/2020',
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb',
     title: 'Pusing kepala',
-    date: '18:00 18/12/2020',
+    date: '18/12/2020',
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53ab',
     title: 'Pusing kepala',
-    date: '18:00 18/12/2020',
+    date: '18/12/2020',
   },
 ];
 
