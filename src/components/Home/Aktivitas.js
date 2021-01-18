@@ -3,28 +3,6 @@ import {View, FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import { theme } from '../theme';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First hai',
-    date: '18:00 12/12/2020',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28b',
-    title: 'First hai',
-    date: '18:00 12/12/2020',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb2',
-    title: 'First hai',
-    date: '18:00 12/12/2020',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb',
-    title: 'First hai',
-    date: '18:00 12/12/2020',
-  },
-];
 
 const Item = ({title, date, uji}) => (
   <View style={styles.item}>
@@ -33,19 +11,23 @@ const Item = ({title, date, uji}) => (
   </View>
 );
 
-const Aktivitas = () => {
+const Aktivitas = (Props) => {
+  const data = React.useMemo(()=>{
+    return Props.data
+  },[])
+
   const navigation = useNavigation();
   function handleClick() {
     navigation.navigate('Aktivitas');
   }
 
-  const renderItem = ({item}) => <Item title={item.title} date={item.date} />;
+  const renderItem = ({item}) => <Item title={item.pelajaran} date={item.tanggal} />;
 
   return (
     <>
       <Text style={styles.title}>Aktivitas</Text>
       <FlatList
-        data={DATA}
+        data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
