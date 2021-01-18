@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import { theme } from '../theme'
 import {useQuery, gql} from '@apollo/client';
 
+
 const GET_MEDICAL = gql`
   query Get_Medical($id: ID!) {
     user(id: $id){

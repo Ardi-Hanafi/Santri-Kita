@@ -3,6 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import Menu from './Menu';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Iconft from 'react-native-vector-icons/Feather';
+import { theme } from '../theme';
 
 const Menus = () => {
   return (
@@ -22,6 +23,17 @@ const styles = StyleSheet.create({
     marginLeft: 25,
     marginTop: 20,
     justifyContent: 'space-between',
+    borderRadius: 8,
+    backgroundColor: '#ffffff',
+    // shadow
+    shadowColor: '#999999',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 2,
   },
 });
 

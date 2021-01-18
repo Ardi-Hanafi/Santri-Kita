@@ -28,9 +28,14 @@ const Item = (Props) => {
         <Icon 
           name='heart' 
           size={15} color="#fff" 
-          style={{marginRight:5}}
+          style={{marginRight:10}}
         />
-        <Text style={{ color:'#fff' }}>{Props.title}</Text>
+        <Text 
+          style={{ 
+            color:'#fff',
+            fontSize:12, 
+          }}
+        >{Props.title}</Text>
       </View>
     </TouchableOpacity>
   );
