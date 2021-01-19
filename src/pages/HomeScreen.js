@@ -23,6 +23,7 @@ const GET_DATA = gql`
       student{
         id
         nama
+        kamar
         kelas {
           kelas
           lesson_histories(limit:3){
@@ -51,7 +52,7 @@ const HomeScreen = ({navigation}) => {
         contentInsetAdjustmentBehavior="automatic"
         style={styles.bagianScroll}>
         <Biaya />
-        <Profile />
+        <Profile nama={data.user.student.nama} kamar={data.user.student.kamar} kelas={data.user.student.kelas.kelas} />
         <Menus />
         <Aktivitas data={data.user.student.kelas.lesson_histories}/>
       </ScrollView>

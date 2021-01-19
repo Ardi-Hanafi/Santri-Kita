@@ -2,7 +2,15 @@ import React from 'react';
 import {Image, Text, View, StyleSheet} from 'react-native';
 import { theme } from '../theme'
 
-const Profile = () => {
+const Profile = (Props) => {
+  const data = React.useMemo(()=>{
+    return {
+      nama : Props.nama,
+      kelas : Props.kelas,
+      kamar: Props.kamar
+    }
+  },[])
+
   return (
     <View style={styles.container}>
       <Image
@@ -11,8 +19,8 @@ const Profile = () => {
           uri: 'https://randomuser.me/api/portraits/men/85.jpg',
         }}
       />
-      <Text style={styles.name}>Andrej Lazar</Text>
-      <Text style={styles.info}>Asrama 1 | Kelas 5</Text>
+      <Text style={styles.name}>{data.nama}</Text>
+      <Text style={styles.info}>{data.kamar} | {data.kelas}</Text>
     </View>
   );
 };
