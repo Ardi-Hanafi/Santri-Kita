@@ -1,28 +1,10 @@
 import React from 'react';
-import {View, FlatList, StyleSheet, Text,TouchableOpacity} from 'react-native';
+import {View, FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {theme} from '../theme';
 import Iconmci from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First hai',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28b',
-    title: 'First hai',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb2',
-    title: 'First hai',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb',
-    title: 'First hai',
-  },
-];
-
-const Item = ({title}) => {
+const Item = (Props) => {
+  const {bab, kompetensi_dasar, keterangan} = Props.data;
   const [colapse, setColapse] = React.useState(true);
   return (
     <View
@@ -32,28 +14,41 @@ const Item = ({title}) => {
         backgroundColor: '#FAFAFA',
         borderRadius: 8,
       }}>
-      <TouchableOpacity onPress={()=>{setColapse(!colapse)}} style={styles.container}>
-        <Text style={{color: theme.colors.gray5}}>{title}</Text>
-        {colapse ? (<Iconmci name="chevron-right" size={20} color="#52525B" />):(<Iconmci name="chevron-down" size={20} color="#52525B" />)}
-        
+      <TouchableOpacity
+        onPress={() => {
+          setColapse(!colapse);
+        }}
+        style={styles.container}>
+        <Text style={{color: theme.colors.gray5, fontWeight: 'bold'}}>
+          {bab} : {kompetensi_dasar}
+        </Text>
+        <View style={{ marginLeft:-10 }}>
+          {colapse ? (
+            <Iconmci name="chevron-right" size={20} color="#52525B" />
+          ) : (
+            <Iconmci name="chevron-down" size={20} color="#52525B" />
+          )}
+        </View>
       </TouchableOpacity>
       {colapse ? null : (
         <Text
           style={{color: '#52525B', paddingHorizontal: 25, marginVertical: 10}}>
-          hguyhfgasduygfousydgfuodygouiagydyugsdyug
+          {keterangan}
         </Text>
       )}
     </View>
   );
 };
 
-const SilabusListDetail = () => {
-  const renderItem = ({item}) => <Item title={item.title} />;
+const renderItem = ({item}) => {
+  return <Item key={item.id} data={item} />;
+};
 
+const SilabusListDetail = ({data}) => {
   return (
     <>
       <FlatList
-        data={DATA}
+        data={data.data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />

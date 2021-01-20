@@ -14,15 +14,18 @@ import Header from '../components/Header';
 import Title from '../components/Title';
 import SilabusListDetail from '../components/Silabus/SilabusListDetail';
 
-const SilabusScreen = ({navigation}) => {
+const SilabusScreen = ({route,navigation}) => {
+  const data = React.useMemo(()=>{
+    return route.params;
+  },[route.params])
   return (
     <SafeAreaView style={styles.pageArea}>
       <Header></Header>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={styles.bagianScroll}>
-        <Title backRoute="Silabus" title="Hafalan" />
-        <SilabusListDetail />
+        <Title backRoute="Silabus" title={data.pelajaran} />
+        <SilabusListDetail data={data}/>
       </ScrollView>
 
       <Navbar></Navbar>
