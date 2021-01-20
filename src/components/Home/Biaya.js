@@ -1,31 +1,31 @@
 import React from 'react';
-import {View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { theme } from '../theme';
+import {View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {theme} from '../theme';
 import Iconfa from 'react-native-vector-icons/FontAwesome';
 
-const Biaya = () => {
+const Biaya = (Props) => {
+  const {data} = Props
   const navigation = useNavigation();
-  function handleClick(){
+  function handleClick() {
     navigation.navigate('Biaya');
   }
   return (
     <View style={styles.container}>
       <View style={styles.left}>
         <Text style={styles.label}>Biaya:</Text>
-        <Text style={styles.cost}>Rp 1.000.000</Text>
-        <View style={styles.containerStatus} >
-        <Text style={styles.status}>Lunas</Text>
+        <Text style={styles.cost}>Rp {data.nominal}</Text>
+        <View style={styles.containerStatus}>
+          <Text style={styles.status}>{data.status}</Text>
         </View>
       </View>
       <View style={styles.right}>
         <TouchableOpacity
           onPress={() => {
-            handleClick()
+            handleClick();
           }}
-          style={{padding:10}}
-        >
-          <Iconfa name='angle-right' size={25} color="#71717A" />
+          style={{padding: 10}}>
+          <Iconfa name="angle-right" size={25} color="#71717A" />
         </TouchableOpacity>
       </View>
     </View>
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
   containerStatus: {
     backgroundColor: theme.colors.brand2,
     borderRadius: 3,
-    padding: 3, 
-    marginLeft: 5
+    padding: 3,
+    marginLeft: 5,
   },
   status: {
     color: theme.colors.brand7,

@@ -32,6 +32,10 @@ const GET_DATA = gql`
             tanggal
           }
         }
+        bills(limit:1) {
+          status
+          nominal
+        }
       }
     }
   }
@@ -51,7 +55,7 @@ const HomeScreen = ({navigation}) => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={styles.bagianScroll}>
-        <Biaya />
+        <Biaya data={data.user.student.bills[0]}/>
         <Profile nama={data.user.student.nama} kamar={data.user.student.kamar} kelas={data.user.student.kelas.kelas} />
         <Menus />
         <Aktivitas data={data.user.student.kelas.lesson_histories}/>
