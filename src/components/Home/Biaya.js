@@ -1,33 +1,37 @@
 import React from 'react';
-import {View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {theme} from '../theme';
 import Iconfa from 'react-native-vector-icons/FontAwesome';
+import {theme} from '../theme';
+import {useNavigation} from '@react-navigation/native';
+import {moneySeparator} from '../Helper';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-const Biaya = (Props) => {
-  const {data} = Props
+const Biaya = ({data}) => {
+  // untuk pindah page
   const navigation = useNavigation();
-  function handleClick() {
-    navigation.navigate('Biaya');
-  }
+
   return (
     <View style={styles.container}>
+      {/* Detail of Biaya */}
       <View style={styles.left}>
         <Text style={styles.label}>Biaya:</Text>
-        <Text style={styles.cost}>Rp {data.nominal}</Text>
-        <View style={[data.status === "Lulus" ? styles.containerLulus : styles.containerBelum]}>
-          <Text style={styles.status}>{data.status}</Text>
-        </View>
+        <Text style={styles.cost}>Rp {moneySeparator(data.nominal)}</Text>
+        {/* perkondisian sesuai status pembayaran */}
+        <Text
+          style={[
+            styles.status,
+            data.status === 'Lulus' ? styles.bgLulus : styles.bgBelum,
+          ]}>
+          {data.status}
+        </Text>
       </View>
-      <View style={styles.right}>
-        <TouchableOpacity
-          onPress={() => {
-            handleClick();
-          }}
-          style={{padding: 10}}>
-          <Iconfa name="angle-right" size={25} color="#71717A" />
-        </TouchableOpacity>
-      </View>
+      {/* button right arrow */}
+      <TouchableOpacity
+        style={styles.right}
+        onPress={() => {
+          navigation.navigate('Biaya');
+        }}>
+        <Iconfa name="angle-right" size={25} color="#71717A" />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -43,22 +47,15 @@ const styles = StyleSheet.create({
     paddingRight: 25,
     marginLeft: 25,
     marginRight: 25,
-    marginTop: 20,
+    marginTop: 15,
     marginBottom: 20,
     borderRadius: 8,
-    // shadow
-    shadowColor: '#999999',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 2,
+    ...theme.shadow,
   },
   right: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginRight: 15
   },
   left: {
     flexDirection: 'row',
@@ -72,21 +69,18 @@ const styles = StyleSheet.create({
     color: theme.colors.gray5,
     fontWeight: 'bold',
   },
-  containerLunas: {
+  bgLunas: {
     backgroundColor: theme.colors.brand2,
-    borderRadius: 3,
-    padding: 3,
-    marginLeft: 5,
   },
-  containerBelum: {
-    backgroundColor: "#FEF3C7",
-    borderRadius: 3,
-    padding: 3,
-    marginLeft: 5,
+  bgBelum: {
+    backgroundColor: theme.colors.amber100,
   },
   status: {
     color: theme.colors.gray5,
     fontWeight: 'bold',
+    borderRadius: 3,
+    padding: 3,
+    marginLeft: 5,
   },
 });
 
