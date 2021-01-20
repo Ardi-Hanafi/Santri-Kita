@@ -15,7 +15,7 @@ const Biaya = (Props) => {
       <View style={styles.left}>
         <Text style={styles.label}>Biaya:</Text>
         <Text style={styles.cost}>Rp {data.nominal}</Text>
-        <View style={styles.containerStatus}>
+        <View style={[data.status === "Lulus" ? styles.containerLulus : styles.containerBelum]}>
           <Text style={styles.status}>{data.status}</Text>
         </View>
       </View>
@@ -72,14 +72,20 @@ const styles = StyleSheet.create({
     color: theme.colors.gray5,
     fontWeight: 'bold',
   },
-  containerStatus: {
+  containerLunas: {
     backgroundColor: theme.colors.brand2,
     borderRadius: 3,
     padding: 3,
     marginLeft: 5,
   },
+  containerBelum: {
+    backgroundColor: "#FEF3C7",
+    borderRadius: 3,
+    padding: 3,
+    marginLeft: 5,
+  },
   status: {
-    color: theme.colors.brand7,
+    color: theme.colors.gray5,
     fontWeight: 'bold',
   },
 });
