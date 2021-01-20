@@ -2,38 +2,25 @@ import React, {useState} from 'react';
 import {TouchableOpacity, Text, StyleSheet, View, Image} from 'react-native';
 import Lunas from './Lunas.svg';
 import Iconmci from 'react-native-vector-icons/MaterialCommunityIcons';
+import Iconft from 'react-native-vector-icons/Feather';
 
-const data = [
-  {
-    title: 'Lunas',
-    active: true,
-  },
-  {
-    title: 'Belum Lunas',
-    active: true,
-  },
-];
 
 const Item = (Props) => {
-  const [active, setActive] = useState(true);
+  const active = React.useMemo(()=>Props.active,[Props.active]);
   return (
     <TouchableOpacity
       onPress={() => {
-        setActive(!active);
+        Props.parentCallback(!active);
       }}>
       <View style={[active ? styles.itemAktif : styles.item]}>
-          <Iconmci name='check-circle-outline' size={18} color="#fff" style={{marginRight: 5}} />
-          {/* <Lunas width={15} height={15} style={{marginRight: 5}} /> */}
+          {Props.icon}
         <Text style={{ color:'#fff' }}>{Props.title}</Text>
       </View>
     </TouchableOpacity>
   );
 };
 
-const FilterBiaya = () => {
-  const items = data.map((item) => (
-    <Item key={item.title} title={item.title} />
-  ));
+const FilterBiaya = (Props) => {
   return (
     <View
       style={{
@@ -41,7 +28,8 @@ const FilterBiaya = () => {
         justifyContent: 'center',
         marginBottom: 15,
       }}>
-      {items}
+      <Item icon={<Iconmci name='check-circle-outline' size={18} color="#fff" style={{marginRight: 5}} />} active={Props.lunas} parentCallback={Props.setLunas} title="Lunas"></Item>
+      <Item icon={<Iconft name='alert-circle' size={18} color="#fff" style={{marginRight: 5}} />} active={Props.belumLunas} parentCallback={Props.setBelumLunas} title="Belum Lunas"></Item>
     </View>
   );
 };

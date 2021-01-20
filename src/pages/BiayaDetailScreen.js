@@ -11,20 +11,22 @@ import {
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import Title from '../components/Title';
-import BiayaDetailList from '../components/Biaya/BiayaDetailList'
+import BiayaDetailList from '../components/Biaya/BiayaDetailList';
 
-const BiayaDetailScreen = ({navigation}) => {
+const BiayaDetailScreen = ({route, navigation}) => {
+  const data = React.useMemo(()=>{
+    return route.params;
+  },[route.params])
   return (
     <SafeAreaView style={styles.pageArea}>
       <Header></Header>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={styles.bagianScroll}> 
-        <View style={styles.container} >
+        style={styles.bagianScroll}>
+        <View style={styles.container}>
           <Title backRoute="Biaya" title="Rincian Biaya" />
-          <BiayaDetailList />
+          <BiayaDetailList data={data} />
         </View>
-        
       </ScrollView>
       <Navbar></Navbar>
     </SafeAreaView>
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   container: {
-      height: '100%', width: '100%',
-      alignItems: 'center',
+    height: '100%',
+    width: '100%',
   },
 });
