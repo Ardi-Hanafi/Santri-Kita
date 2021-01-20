@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Home from '../assets/Navbar/home.svg';
@@ -9,28 +9,26 @@ import {ActivePageContext} from './Context';
 
 const Navbar = () => {
   const navigation = useNavigation();
+  // mendapatkan context berisi string halaman yang aktif
   const {setContext, getContext} = React.useContext(ActivePageContext);
   return (
     <View style={styles.containerNavbar}>
       <View style={styles.containerNavbar2}>
+        {/* Home */}
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('Home'), setContext('Home');
           }}
-          style={{
-            paddingHorizontal: 20,
-            paddingVertical: 5,
-          }}>
+          style={styles.menu}>
           {getContext() === 'Home' ? <HomeActive /> : <Home />}
         </TouchableOpacity>
+
+        {/* Profile */}
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('Profile'), setContext('Profile');
           }}
-          style={{
-            paddingHorizontal: 20,
-            paddingVertical: 5,
-          }}>
+          style={styles.menu}>
           {getContext() === 'Profile' ? <ProfileActive /> : <Profile />}
         </TouchableOpacity>
       </View>
@@ -59,5 +57,9 @@ const styles = StyleSheet.create({
   },
   iconNavbar: {
     height: 20,
+  },
+  menu: {
+    paddingHorizontal: 20,
+    paddingVertical: 5,
   },
 });
