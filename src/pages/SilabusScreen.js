@@ -26,7 +26,6 @@ export default SilabusScreen;
 const styles = StyleSheet.create({
   bagianScroll: {
     backgroundColor: '#fff',
-    marginVertical: 50,
 
   },
   pageArea: {

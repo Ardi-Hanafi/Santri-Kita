@@ -161,10 +161,8 @@ const Router = () => {
                         navigation.navigate('Notif');
                       }}
                       style={{
-                        height: 17,
                         width: 15.6,
-
-                        marginRight: 15,
+                        marginRight: 30,
                       }}>
                       <Notif />
                     </TouchableOpacity>
