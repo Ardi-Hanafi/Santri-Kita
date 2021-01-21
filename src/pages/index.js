@@ -10,6 +10,7 @@ import SilabusScreen from './SilabusScreen';
 import SilabusDetailScreen from './SilabusDetailScreen';
 import BiayaScreen from './BiayaScreen';
 import BiayaDetailScreen from './BiayaDetailScreen';
+import NotifScreen from './NotifScreen';
 
 export {
   HomeScreen,
@@ -24,4 +25,5 @@ export {
   SilabusDetailScreen,
   BiayaScreen,
   BiayaDetailScreen,
+  NotifScreen
 };

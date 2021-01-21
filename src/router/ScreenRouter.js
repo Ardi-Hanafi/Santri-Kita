@@ -11,6 +11,7 @@ import {
     SilabusDetailScreen,
     BiayaScreen,
     BiayaDetailScreen,
+    NotifScreen
   } from '../pages';
 
   import {ActivePageContext} from '../components/Context';
@@ -40,6 +41,7 @@ export default MainApp = () => {
         <Stack.Screen name="SilabusDetail" component={SilabusDetailScreen} />
         <Stack.Screen name="Biaya" component={BiayaScreen} />
         <Stack.Screen name="BiayaDetail" component={BiayaDetailScreen} />
+        <Stack.Screen name="Notif" component={NotifScreen} />
       </Stack.Navigator>
     </ActivePageContext.Provider>
   );
