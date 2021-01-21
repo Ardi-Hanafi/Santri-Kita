@@ -10,8 +10,6 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import Navbar from '../components/Navbar';
-import Header from '../components/Header';
 import Biaya from '../components/Home/Biaya';
 import Profile from '../components/Home/Profile';
 import Menus from '../components/Home/Menus';
@@ -50,8 +48,6 @@ const HomeScreen = ({navigation}) => {
   if(error) return(<Text>Error</Text>)
   return (
     <SafeAreaView style={styles.pageArea}>
-      <Header></Header>
-      
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={styles.bagianScroll}>
@@ -60,8 +56,6 @@ const HomeScreen = ({navigation}) => {
         <Menus />
         <Aktivitas data={data.user.student.kelas.lesson_histories}/>
       </ScrollView>
-
-      <Navbar></Navbar>
     </SafeAreaView>
   );
 };
@@ -71,7 +65,6 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   bagianScroll: {
     backgroundColor: '#fff',
-    marginVertical: 50,
   },
   pageArea: {
     height: '100%',

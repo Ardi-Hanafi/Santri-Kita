@@ -1,11 +1,13 @@
 import 'react-native-gesture-handler';
-import React,{useReducer, useEffect, useMemo} from 'react';
+import React, {useReducer, useEffect, useMemo} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+import {Text, TouchableOpacity} from 'react-native';
 import {SplashScreen, LoginScreen} from '../pages';
 import ScreenRouter from './ScreenRouter';
 import {AuthContext} from '../components/Context';
 import AsyncStorage from '@react-native-community/async-storage';
 import {setContext} from '@apollo/client/link/context';
+import Notif from '../assets/Header/notif.svg';
 import {
   ApolloProvider,
   ApolloClient,
@@ -14,6 +16,7 @@ import {
 } from '@apollo/client';
 
 const Stack = createStackNavigator();
+import {useNavigation} from '@react-navigation/native';
 
 // endpoint api
 const httpLink = createHttpLink({
@@ -112,19 +115,65 @@ const Router = () => {
   // return login if isLoading true
   function handleSplash() {
     if (loginState.isLoading) {
-      return <Stack.Screen name="Splash" component={SplashScreen} />;
+      return (
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Splash"
+          component={SplashScreen}
+        />
+      );
     }
   }
 
   return (
     <AuthContext.Provider value={authContext}>
       <ApolloProvider client={client}>
-        <Stack.Navigator initialRouteName="MainApp" headerMode="none">
+        <Stack.Navigator initialRouteName="MainApp">
           {handleSplash()}
           {loginState.userToken === null ? (
-            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="Login"
+              component={LoginScreen}
+            />
           ) : (
-            <Stack.Screen name="MainApp" component={ScreenRouter} />
+            <Stack.Screen
+              options={{
+                headerTitle: (Props) => {
+                  return (
+                    <Text
+                      style={{
+                        fontFamily: 'Roboto',
+                        marginLeft: 15,
+                        fontSize: 16,
+                        fontWeight: 'bold',
+                        color: '#828282',
+                      }}>
+                      Santri Kita
+                    </Text>
+                  );
+                },
+                headerRight: (Props) => {
+                  const navigation = useNavigation();
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate('Notif');
+                      }}
+                      style={{
+                        height: 17,
+                        width: 15.6,
+
+                        marginRight: 15,
+                      }}>
+                      <Notif />
+                    </TouchableOpacity>
+                  );
+                },
+              }}
+              name="MainApp"
+              component={ScreenRouter}
+            />
           )}
         </Stack.Navigator>
       </ApolloProvider>

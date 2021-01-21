@@ -1,8 +1,6 @@
 import 'react-native-gesture-handler';
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
-import Navbar from '../components/Navbar';
-import Header from '../components/Header';
+import React from 'react';
+import { StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import Title from '../components/Title';
 import RiwayatList from '../components/Aktivitas/AktivitasList';
 import DateFilter from '../components/Aktivitas/DateFilter';
@@ -19,7 +17,6 @@ const AktivitasScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.pageArea}>
-      <Header></Header>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={styles.bagianScroll}>
@@ -27,8 +24,6 @@ const AktivitasScreen = ({navigation}) => {
         <DateFilter parentCallback={handleCallback} />
         <RiwayatList />
       </ScrollView>
-
-      <Navbar></Navbar>
     </SafeAreaView>
   );
 };
@@ -38,7 +33,6 @@ export default AktivitasScreen;
 const styles = StyleSheet.create({
   bagianScroll: {
     backgroundColor: '#fff',
-    marginVertical: 50,
     flex: 1,
   },
   pageArea: {
