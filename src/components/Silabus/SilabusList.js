@@ -11,6 +11,8 @@ import {theme} from '../theme';
 import Iconet from 'react-native-vector-icons/Entypo';
 import {useNavigation} from '@react-navigation/native';
 import {useQuery, gql} from '@apollo/client';
+import Loading from '../Loading';
+import Error from '../Error';
 
 const GET_SILABUS = gql`
   query Get_Silabus($id: ID!) {
@@ -56,34 +58,17 @@ function filter(data) {
   return result;
 }
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First hai',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28b',
-    title: 'First hai',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb2',
-    title: 'First hai',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb',
-    title: 'First hai',
-  },
-];
-
 const Item = ({item}) => {
-  const {pelajaran,data} = item
+  const {pelajaran, data} = item;
   const navigation = useNavigation();
   const handleClick = () => {
-    navigation.navigate('SilabusDetail',{pelajaran,data});
+    navigation.navigate('SilabusDetail', {pelajaran, data});
   };
 
   return (
-    <TouchableOpacity onPress={() => handleClick(item)} style={styles.container}>
+    <TouchableOpacity
+      onPress={() => handleClick(item)}
+      style={styles.container}>
       <Text style={{color: '#333333'}}>{pelajaran}</Text>
       <Iconet name="chevron-right" size={25} color="#333333" />
     </TouchableOpacity>
@@ -99,16 +84,35 @@ const SilabusList = () => {
     variables: {id: '2'},
   });
 
-  if (loading) return <Text>Loading</Text>;
-  if (error) {
-    console.log(error);
-    return <Text>Error</Text>;
-  }
+  if (loading) return <Loading />;
+  if (error) return <Error />;
+
   const newData = filter(data.user.student.kelas.silabuses);
 
   return (
     <>
-      <FlatList data={newData} renderItem={renderItem}/>
+      <FlatList
+        data={newData}
+        renderItem={renderItem}
+        ListEmptyComponent={
+          <View
+            style={{
+              marginVertical: 10,
+              marginHorizontal: 25,
+              paddingHorizontal: 20,
+              flexDirection: 'row',
+              alignItems: 'center',
+              height: 60,
+              backgroundColor: '#F4F4F5',
+              borderRadius: 8,
+              justifyContent: 'center',
+            }}>
+            <Text style={{fontSize: 15, color: '#71717A', textAlign: 'center'}}>
+              Tidak ada Data
+            </Text>
+          </View>
+        }
+      />
     </>
   );
 };

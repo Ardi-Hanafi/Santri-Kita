@@ -21,7 +21,7 @@ const AktivitasScreen = ({navigation}) => {
         contentInsetAdjustmentBehavior="automatic"
         style={styles.bagianScroll}>
         <Title backRoute="Home" title="Aktivitas" />
-        <DateFilter parentCallback={handleCallback} />
+        {/* <DateFilter parentCallback={handleCallback} /> */}
         <RiwayatList />
       </ScrollView>
     </SafeAreaView>

@@ -15,6 +15,7 @@ import Profile from '../components/Home/Profile';
 import Menus from '../components/Home/Menus';
 import Aktivitas from '../components/Home/Aktivitas';
 import {useQuery, gql} from '@apollo/client';
+import HomeLoading from '../components/loading/HomeLoading';
 const GET_DATA = gql`
   query Get_Data($id: ID!) {
     user(id: $id){
@@ -44,13 +45,14 @@ const HomeScreen = ({navigation}) => {
     variables:{id:"2"}
   });
 
-  if(loading) return(<Text>Loading</Text>)
+  if(loading) return(<HomeLoading/>)
   if(error) return(<Text>Error</Text>)
   return (
     <SafeAreaView style={styles.pageArea}>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={styles.bagianScroll}>
+          
         <Biaya data={data.user.student.bills[0]}/>
         <Profile nama={data.user.student.nama} kamar={data.user.student.kamar} kelas={data.user.student.kelas.kelas} />
         <Menus />

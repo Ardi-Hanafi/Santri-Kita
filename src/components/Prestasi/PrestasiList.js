@@ -1,15 +1,17 @@
 import React from 'react';
 import {Image, View, FlatList, StyleSheet, Text} from 'react-native';
-import Medal from './medal.svg'
+import Medal from './medal.svg';
 import Iconi from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {useQuery, gql} from '@apollo/client';
+import Loading from '../Loading';
+import Error from '../Error';
 
 const GET_ACTIVITIES = gql`
   query Get_Activities($id: ID!) {
-    user(id: $id){
-      student{
-        achievements{
+    user(id: $id) {
+      student {
+        achievements {
           id
           prestasi
           kegiatan_lomba
@@ -22,29 +24,52 @@ const GET_ACTIVITIES = gql`
 
 const Item = ({title, date}) => (
   <View style={styles.container}>
-    <View style={{flexDirection: 'row',alignItems: 'center'}}>
-      <Iconi name='medal' size={28} color='#52525B' />
-      <Text style={{ color:'#52525B', marginLeft:10, fontSize: 15 }}>{title}</Text>
+    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      <Iconi name="medal" size={28} color="#52525B" />
+      <Text style={{color: '#52525B', marginLeft: 10, fontSize: 15}}>
+        {title}
+      </Text>
     </View>
-    <Text style={{ color:'#71717A', fontSize: 13 }}>{date}</Text>
+    <Text style={{color: '#71717A', fontSize: 13}}>{date}</Text>
   </View>
 );
 
-const renderItem = ({item}) => <Item key={item.id} title={item.prestasi} date={item.tahun}/>;
+const renderItem = ({item}) => (
+  <Item key={item.id} title={item.prestasi} date={item.tahun} />
+);
 
 const PrestasiList = () => {
-  const {loading, error, data} = useQuery(GET_ACTIVITIES,{
-    variables:{id:"2"}
+  const {loading, error, data} = useQuery(GET_ACTIVITIES, {
+    variables: {id: '2'},
   });
 
-  if(loading) return(<Text>Loading</Text>)
-  if(error) return(<Text>Error</Text>)
+  if (loading) return <Loading />;
+  if (error) return <Error />;
+
   return (
     <>
       <FlatList
         data={data.user.student.achievements}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        ListEmptyComponent={
+          <View
+            style={{
+              marginVertical: 10,
+              marginHorizontal: 25,
+              paddingHorizontal: 20,
+              flexDirection: 'row',
+              alignItems: 'center',
+              height: 60,
+              backgroundColor: '#F4F4F5',
+              borderRadius: 8,
+              justifyContent: 'center',
+            }}>
+            <Text style={{fontSize: 15, color: '#71717A', textAlign: 'center'}}>
+              Tidak ada Data
+            </Text>
+          </View>
+        }
       />
     </>
   );

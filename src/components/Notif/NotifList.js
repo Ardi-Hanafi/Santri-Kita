@@ -2,6 +2,8 @@ import React from 'react';
 import {View, FlatList, StyleSheet, Text} from 'react-native';
 import {useQuery, gql} from '@apollo/client';
 import {dateFormat} from '../Helper'
+import Loading from '../Loading';
+import Error from '../Error';
 
 const GET_ACTIVITIES = gql`
   query Get_Activities($id: ID!) {
@@ -35,14 +37,33 @@ const AktivitasList = () => {
     variables: {id: '2'},
   });
 
-  if (loading) return <Text>Loading</Text>;
-  if (error) return <Text>Error</Text>;
+  if (loading) return <Loading />;
+  if (error) return <Error />;
+
   if (data) {
     return (
       <>
         <FlatList
           data={data.user.student.notifications}
           renderItem={renderItem}
+          ListEmptyComponent={
+            <View
+              style={{
+                marginVertical: 10,
+                marginHorizontal: 25,
+                paddingHorizontal: 20,
+                flexDirection: 'row',
+                alignItems: 'center',
+                height: 60,
+                backgroundColor: '#F4F4F5',
+                borderRadius: 8,
+                justifyContent: 'center',
+              }}>
+              <Text style={{fontSize: 15, color: '#71717A', textAlign: 'center'}}>
+                Tidak ada Data
+              </Text>
+            </View>
+          }
         />
       </>
     );

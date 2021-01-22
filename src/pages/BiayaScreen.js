@@ -1,10 +1,12 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {Text, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
+import {Text,View, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import Title from '../components/Title';
 import FilterBiaya from '../components/Biaya/FilterBiaya';
 import BiayaList from '../components/Biaya/BiayaList';
 import {useQuery, gql} from '@apollo/client';
+import Loading from '../components/Loading';
+import Error from '../components/Error';
 
 const GET_ACTIVITIES = gql`
   query Get_Activities($id: ID!) {
@@ -35,10 +37,21 @@ const BiayaScreen = ({navigation}) => {
   const [lunas, setLunas] = React.useState(true);
   const [belumLunas, setBelumLunas] = React.useState(true);
 
-  if (loading) return <Text>Loading</Text>;
+  if (loading)
+    return (
+      <View style={{ flex:1,backgroundColor:'#fff' }}>
+        <Title backRoute="Home" title="Biaya" />
+        <Loading />
+      </View>
+    );
   if (error) {
     console.log(error);
-    return <Text>Upsss maaf terjadi error</Text>;
+    return (
+      <View style={{ flex:1,backgroundColor:'#fff' }}>
+        <Title backRoute="Home" title="Biaya" />
+        <Error />
+      </View>
+    );
   }
 
   return (
