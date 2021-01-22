@@ -1,13 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import {View, FlatList, StyleSheet, Text} from 'react-native';
 import {useQuery, gql} from '@apollo/client';
+import Loading from '../Loading';
+import Error from '../Error';
 
 const GET_ACTIVITIES = gql`
   query Get_Activities($id: ID!) {
-    user(id: $id){
-      student{
+    user(id: $id) {
+      student {
         kelas {
-          lesson_histories{
+          lesson_histories {
             id
             pelajaran
             tanggal
@@ -30,20 +32,39 @@ const renderItem = ({item}) => (
 );
 
 const AktivitasList = () => {
-
-  const {loading, error, data} = useQuery(GET_ACTIVITIES,{
-    variables:{id:"2"}
+  const {loading, error, data} = useQuery(GET_ACTIVITIES, {
+    variables: {id: '2'},
   });
 
-  if(loading) return(<Text>Loading</Text>)
-  if(error) return(<Text>Error</Text>)
-  if(data){
+  if (loading) return <Loading />;
+  if (error) return <Error />;
+
+  if (data) {
     return (
       <>
         <FlatList
           data={data.user.student.kelas.lesson_histories}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
+          ListEmptyComponent={
+            <View
+              style={{
+                marginVertical: 10,
+                marginHorizontal: 25,
+                paddingHorizontal: 20,
+                flexDirection: 'row',
+                alignItems: 'center',
+                height: 60,
+                backgroundColor: '#F4F4F5',
+                borderRadius: 8,
+                justifyContent: 'center',
+              }}>
+              <Text
+                style={{fontSize: 15, color: '#71717A', textAlign: 'center'}}>
+                Tidak ada Data
+              </Text>
+            </View>
+          }
         />
       </>
     );

@@ -4,7 +4,10 @@ import {StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import Title from '../components/Title';
 import KesehatanList from '../components/Kesehatan/KesehatanList';
 import FilterKesehatan from '../components/Kesehatan/FilterKesehatan';
+import {useQuery, gql} from '@apollo/client';
+
 const KesehatanScreen = ({navigation}) => {
+
   return (
     <SafeAreaView style={styles.pageArea}>
       <ScrollView

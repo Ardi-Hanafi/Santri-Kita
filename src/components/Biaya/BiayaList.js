@@ -8,8 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import Lunas from './Lunas.svg';
-import BelumLunas from './BelumLunas.svg';
+import NoData from '../NoData';
 import Iconft from 'react-native-vector-icons/Feather';
 import Iconmci from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -41,7 +40,9 @@ const Item = ({
     });
   };
   return (
-    <TouchableOpacity onPress={() => handleClick()} style={styles.container}>
+    <TouchableOpacity
+      onPress={() => handleClick()}
+      style={{...styles.container, justifyContent: 'space-between'}}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         {status === 'Lunas' ? (
           <Iconmci name="check-circle-outline" size={28} color="#71717A" />
@@ -82,6 +83,24 @@ const BiayaList = (Props) => {
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        ListEmptyComponent={
+          <View
+            style={{
+              marginVertical: 10,
+              marginHorizontal: 25,
+              paddingHorizontal: 20,
+              flexDirection: 'row',
+              alignItems: 'center',
+              height: 60,
+              backgroundColor: '#F4F4F5',
+              borderRadius: 8,
+              justifyContent: 'center',
+            }}>
+            <Text style={{fontSize: 15, color: '#71717A', textAlign: 'center'}}>
+              Tidak ada Data
+            </Text>
+          </View>
+        }
       />
     </>
   );
@@ -94,7 +113,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     height: 60,
     backgroundColor: '#F4F4F5',
     borderRadius: 8,

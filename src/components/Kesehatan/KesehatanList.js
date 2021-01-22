@@ -2,15 +2,16 @@ import React from 'react';
 import {Image, View, FlatList, StyleSheet, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useNavigation} from '@react-navigation/native';
-import { theme } from '../theme'
+import {theme} from '../theme';
 import {useQuery, gql} from '@apollo/client';
-
+import Loading from '../Loading';
+import Error from '../Error';
 
 const GET_MEDICAL = gql`
   query Get_Medical($id: ID!) {
-    user(id: $id){
-      student{
-        medical_histories{
+    user(id: $id) {
+      student {
+        medical_histories {
           id
           penyakit
           keterangan
@@ -24,38 +25,50 @@ const GET_MEDICAL = gql`
 
 const Item = ({title, date}) => (
   <View style={styles.container}>
-    <View style={{flexDirection: 'row',alignItems: 'center'}}>
-      <Icon 
-        name='heart' 
-        size={30} color="#71717A" 
-        style={{marginRight:10}}
-      />
-      <Text style={{ color: theme.colors.gray5 }}>{title}</Text>
+    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      <Icon name="heart" size={30} color="#71717A" style={{marginRight: 10}} />
+      <Text style={{color: theme.colors.gray5}}>{title}</Text>
     </View>
-    <Text style={{ color: theme.colors.gray4 }}>{date}</Text>
+    <Text style={{color: theme.colors.gray4}}>{date}</Text>
   </View>
 );
 
-const renderItem = ({item}) => <Item key={item.id} title={item.penyakit} date={item.tanggal}/>;
-const SilabusList = () => {
+const renderItem = ({item}) => (
+  <Item key={item.id} title={item.penyakit} date={item.tanggal} />
+);
 
-  const {loading, error, data} = useQuery(GET_MEDICAL,{
-    variables:{id:"2"}
+const SilabusList = () => {
+  const {loading, error, data} = useQuery(GET_MEDICAL, {
+    variables: {id: '2'},
   });
 
-  if(loading) return(<Text>Loading</Text>)
-  if(error) {
-    console.log(error)
-    return(<Text>Error</Text>)}
+  if (loading) return <Loading />;
+  if (error) return <Error />;
 
   return (
-    <>
-      <FlatList
-        data={data.user.student.medical_histories}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-    </>
+    <FlatList
+      data={data.user.student.medical_histories}
+      renderItem={renderItem}
+      // keyExtractor={(item) => item.id}
+      ListEmptyComponent={
+        <View
+          style={{
+            marginVertical: 10,
+            marginHorizontal: 25,
+            paddingHorizontal: 20,
+            flexDirection: 'row',
+            alignItems: 'center',
+            height: 60,
+            backgroundColor: '#F4F4F5',
+            borderRadius: 8,
+            justifyContent: 'center',
+          }}>
+          <Text style={{fontSize: 15, color: '#71717A', textAlign: 'center'}}>
+            Tidak ada Data
+          </Text>
+        </View>
+      }
+    />
   );
 };
 

@@ -2,6 +2,7 @@ import React from 'react';
 import {View, FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {theme} from '../theme';
 import Iconmci from 'react-native-vector-icons/MaterialCommunityIcons';
+import NoData from '../NoData';
 
 const Item = (Props) => {
   const {bab, kompetensi_dasar, keterangan} = Props.data;
@@ -22,7 +23,7 @@ const Item = (Props) => {
         <Text style={{color: theme.colors.gray5, fontWeight: 'bold'}}>
           {bab} : {kompetensi_dasar}
         </Text>
-        <View style={{ marginLeft:-10 }}>
+        <View style={{marginLeft: -10}}>
           {colapse ? (
             <Iconmci name="chevron-right" size={20} color="#52525B" />
           ) : (
@@ -51,6 +52,24 @@ const SilabusListDetail = ({data}) => {
         data={data.data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        ListEmptyComponent={
+          <View
+            style={{
+              marginVertical: 10,
+              marginHorizontal: 25,
+              paddingHorizontal: 20,
+              flexDirection: 'row',
+              alignItems: 'center',
+              height: 60,
+              backgroundColor: '#F4F4F5',
+              borderRadius: 8,
+              justifyContent: 'center',
+            }}>
+            <Text style={{fontSize: 15, color: '#71717A', textAlign: 'center'}}>
+              Tidak ada Data
+            </Text>
+          </View>
+        }
       />
     </>
   );
