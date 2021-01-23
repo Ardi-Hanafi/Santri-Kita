@@ -39,7 +39,7 @@ const renderItem = ({item}) => (
 
 const SilabusList = () => {
   const {loading, error, data} = useQuery(GET_MEDICAL, {
-    variables: {id: '2'},
+    variables: {id: '2'},pollInterval:500
   });
 
   if (loading) return <Loading />;

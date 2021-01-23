@@ -14,7 +14,7 @@ import BiayaDetailList from '../components/Biaya/BiayaDetailList';
 const BiayaDetailScreen = ({route, navigation}) => {
   const data = React.useMemo(()=>{
     return route.params;
-  },[route.params])
+  })
   return (
     <SafeAreaView style={styles.pageArea}>
       <ScrollView

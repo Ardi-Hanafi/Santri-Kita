@@ -81,13 +81,13 @@ const renderItem = ({item}) => {
 
 const SilabusList = () => {
   const {loading, error, data} = useQuery(GET_SILABUS, {
-    variables: {id: '2'},
+    variables: {id: '2'},pollInterval:500
   });
 
   if (loading) return <Loading />;
   if (error) return <Error />;
 
-  const newData = filter(data.user.student.kelas.silabuses);
+  const newData =filter(data.user.student.kelas.silabuses);
 
   return (
     <>

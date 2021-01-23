@@ -10,29 +10,36 @@ const Biaya = ({data}) => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        navigation.navigate('Biaya');
+      }}>
       {/* Detail of Biaya */}
       <View style={styles.left}>
         <Text style={styles.label}>Biaya:</Text>
-        <Text style={styles.cost}>Rp {moneySeparator(data.nominal)}</Text>
-        {/* perkondisian sesuai status pembayaran */}
-        <Text
-          style={[
-            styles.status,
-            data.status === 'Lulus' ? styles.bgLulus : styles.bgBelum,
-          ]}>
-          {data.status}
-        </Text>
+        {/*  */}
+        {data === undefined ? (
+          <Text style={styles.cost}>Tidak ada pembayaran</Text>
+        ) : (
+          <>
+            <Text style={styles.cost}>Rp {moneySeparator(data.nominal)}</Text>
+            {/* perkondisian sesuai status pembayaran */}
+            <Text
+              style={[
+                styles.status,
+                data.status === 'Lulus' ? styles.bgLulus : styles.bgBelum,
+              ]}>
+              {data.status}
+            </Text>
+          </>
+        )}
       </View>
       {/* button right arrow */}
-      <TouchableOpacity
-        style={styles.right}
-        onPress={() => {
-          navigation.navigate('Biaya');
-        }}>
+      <View style={styles.right}>
         <Iconfa name="angle-right" size={25} color="#71717A" />
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -50,12 +57,15 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 20,
     borderRadius: 8,
-    ...theme.shadow,
+    borderColor: theme.colors.gray2,
+    borderRadius: 9,
+    borderWidth: 1,
   },
   right: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 15
+    marginRight: 15,
+    paddingHorizontal: 15,
   },
   left: {
     flexDirection: 'row',
@@ -71,15 +81,17 @@ const styles = StyleSheet.create({
   },
   bgLunas: {
     backgroundColor: theme.colors.brand2,
+    color: theme.colors.brand7,
   },
   bgBelum: {
     backgroundColor: theme.colors.amber100,
+    color: theme.colors.amber700,
   },
   status: {
-    color: theme.colors.gray5,
     fontWeight: 'bold',
-    borderRadius: 3,
-    padding: 3,
+    borderRadius: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
     marginLeft: 5,
   },
 });

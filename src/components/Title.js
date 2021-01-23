@@ -16,7 +16,12 @@ const Title = (Props) => {
         onPress={() => {
           handleClick();
         }}
-        style={{position: 'absolute', zIndex: 10}}>
+        style={{
+          position: 'absolute',
+          zIndex: 10,
+          paddingVertical: 10,
+          paddingRight: 20,
+        }}>
         <BackBtn height={18} width={18} />
       </TouchableOpacity>
       <Text style={styles.title}>{Props.title}</Text>

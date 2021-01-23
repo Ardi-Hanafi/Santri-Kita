@@ -8,12 +8,14 @@ import {AuthContext} from '../components/Context';
 import AsyncStorage from '@react-native-community/async-storage';
 import {setContext} from '@apollo/client/link/context';
 import Notif from '../assets/Header/notif.svg';
+// import theme from '../components/theme';
 import {
   ApolloProvider,
   ApolloClient,
   InMemoryCache,
   createHttpLink,
 } from '@apollo/client';
+
 
 const Stack = createStackNavigator();
 import {useNavigation} from '@react-navigation/native';
@@ -113,7 +115,8 @@ const Router = () => {
   });
 
   // return login if isLoading true
-  function handleSplash() {
+  const handleSplash = ()=>{
+    // if (loginState.isLoading) {
     if (loginState.isLoading) {
       return (
         <Stack.Screen
@@ -139,6 +142,12 @@ const Router = () => {
           ) : (
             <Stack.Screen
               options={{
+                headerStyle: {
+                  borderColor: '#E5E7EB',
+                  borderWidth: 1,
+                  elevation: 0,
+                  shadowOpacity: 0
+                },
                 headerTitle: (Props) => {
                   return (
                     <Text

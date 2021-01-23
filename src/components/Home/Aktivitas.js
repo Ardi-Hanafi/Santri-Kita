@@ -14,7 +14,7 @@ const Item = ({title, date, uji}) => (
 const Aktivitas = (Props) => {
   const data = React.useMemo(() => {
     return Props.data;
-  }, []);
+  });
 
   const navigation = useNavigation();
   function handleClick() {
@@ -59,7 +59,6 @@ const Aktivitas = (Props) => {
         <Text
           style={{
             color: '#fff',
-            fontSize: 16,
           }}>
           Selengkapnya
         </Text>
@@ -76,8 +75,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 30,
     marginBottom: 10,
-    fontSize: 20,
-    color: theme.colors.gray6,
+    fontSize: 18,
+    color: theme.colors.gray5,
   },
   item: {
     flexDirection: 'row',

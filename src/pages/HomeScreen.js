@@ -3,11 +3,7 @@ import React from 'react';
 import {
   StyleSheet,
   Text,
-  View,
   SafeAreaView,
-  TouchableOpacity,
-  Button,
-  Image,
   ScrollView,
 } from 'react-native';
 import Biaya from '../components/Home/Biaya';
@@ -16,22 +12,23 @@ import Menus from '../components/Home/Menus';
 import Aktivitas from '../components/Home/Aktivitas';
 import {useQuery, gql} from '@apollo/client';
 import HomeLoading from '../components/loading/HomeLoading';
+
 const GET_DATA = gql`
   query Get_Data($id: ID!) {
-    user(id: $id){
-      student{
+    user(id: $id) {
+      student {
         id
         nama
         kamar
         kelas {
           kelas
-          lesson_histories(limit:3){
+          lesson_histories(limit: 3) {
             id
             pelajaran
             tanggal
           }
         }
-        bills(limit:1) {
+        bills(limit: 1) {
           status
           nominal
         }
@@ -40,23 +37,32 @@ const GET_DATA = gql`
   }
 `;
 
-const HomeScreen = ({navigation}) => {
-  const {loading, error, data} = useQuery(GET_DATA,{
-    variables:{id:"2"}
+const wait = (timeout) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, timeout);
   });
+};
 
-  if(loading) return(<HomeLoading/>)
-  if(error) return(<Text>Error</Text>)
+const HomeScreen = ({navigation}) => {
+  const {loading, error, data} = useQuery(GET_DATA, {
+    variables: {id: '2'},pollInterval:500
+  });
+  if (loading) return <HomeLoading />;
+  if (error) return <Text>Error</Text>;
+  // console.log(data.user.student.bills[0])
   return (
     <SafeAreaView style={styles.pageArea}>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={styles.bagianScroll}>
-          
-        <Biaya data={data.user.student.bills[0]}/>
-        <Profile nama={data.user.student.nama} kamar={data.user.student.kamar} kelas={data.user.student.kelas.kelas} />
+        <Biaya data={data.user.student.bills[0]} />
+        <Profile
+          nama={data.user.student.nama}
+          kamar={data.user.student.kamar}
+          kelas={data.user.student.kelas.kelas}
+        />
         <Menus />
-        <Aktivitas data={data.user.student.kelas.lesson_histories}/>
+        <Aktivitas data={data.user.student.kelas.lesson_histories} />
       </ScrollView>
     </SafeAreaView>
   );

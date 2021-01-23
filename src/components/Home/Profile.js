@@ -33,15 +33,9 @@ const styles = StyleSheet.create({
     marginRight: 25,
     borderRadius: 8,
     alignItems: 'center',
-    // shadow
-    shadowColor: '#999999',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 2,
+    borderColor: theme.colors.gray2,
+    borderRadius: 9,
+    borderWidth: 1
   },
   image: {
     width: 120,

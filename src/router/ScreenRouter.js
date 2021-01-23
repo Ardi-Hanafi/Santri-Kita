@@ -1,4 +1,4 @@
-import React, {createContext} from 'react';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -38,18 +38,9 @@ const Pages = () => {
 };
 
 export default MainApp = () => {
-  const [page, setPage] = React.useState('Home');
-  const pageContext = React.useMemo(() => ({
-    getContext: () => {
-      return page;
-    },
-    setContext: (value) => {
-      setPage(value);
-    },
-  }));
   return (
     <Tab.Navigator
-      tabBarOptions={{
+    tabBarOptions={{
         activeTintColor: '#10B981',
       }}>
       <Stack.Screen

@@ -58,14 +58,16 @@ const LoginScreen = ({navigate}) => {
 
           <View style={styles.containerInput}>
             <Input
+              style={{ fontSize:16 }}
               value={username}
               onChangeText={(text) => {
                 setUsername(text);
               }}
               placeholder="Username"
               returnKeyType="next"
-            />
+              />
             <Input
+              style={{ fontSize:16 }}
               value={password}
               onChangeText={(text) => {
                 setPassword(text);
@@ -129,7 +131,6 @@ const styles = StyleSheet.create({
   textBtnLogin: {
     fontFamily: 'Roboto',
     fontWeight: 'bold',
-    fontSize: 12,
     textAlign: 'center',
     color: '#F2F2F2',
   },
