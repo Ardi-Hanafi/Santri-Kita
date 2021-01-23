@@ -9,7 +9,7 @@ const Profile = (Props) => {
       kelas : Props.kelas,
       kamar: Props.kamar
     }
-  },[])
+  })
 
   return (
     <View style={styles.container}>
