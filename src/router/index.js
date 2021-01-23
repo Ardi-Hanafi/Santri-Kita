@@ -7,15 +7,14 @@ import ScreenRouter from './ScreenRouter';
 import {AuthContext} from '../components/Context';
 import AsyncStorage from '@react-native-community/async-storage';
 import {setContext} from '@apollo/client/link/context';
-import Notif from '../assets/Header/notif.svg';
-// import theme from '../components/theme';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import {
   ApolloProvider,
   ApolloClient,
   InMemoryCache,
   createHttpLink,
 } from '@apollo/client';
-
 
 const Stack = createStackNavigator();
 import {useNavigation} from '@react-navigation/native';
@@ -115,7 +114,7 @@ const Router = () => {
   });
 
   // return login if isLoading true
-  const handleSplash = ()=>{
+  const handleSplash = () => {
     // if (loginState.isLoading) {
     if (loginState.isLoading) {
       return (
@@ -126,7 +125,7 @@ const Router = () => {
         />
       );
     }
-  }
+  };
 
   return (
     <AuthContext.Provider value={authContext}>
@@ -146,7 +145,7 @@ const Router = () => {
                   borderColor: '#E5E7EB',
                   borderWidth: 1,
                   elevation: 0,
-                  shadowOpacity: 0
+                  shadowOpacity: 0,
                 },
                 headerTitle: (Props) => {
                   return (
@@ -170,10 +169,13 @@ const Router = () => {
                         navigation.navigate('Notif');
                       }}
                       style={{
-                        width: 15.6,
+                        position: 'relative',
                         marginRight: 30,
                       }}>
-                      <Notif />
+                      <Text style={{zIndex: 10, borderRadius: 10,minWidth:20,fontSize:8,textAlign: 'center',color:'#fff',position: 'absolute', right: 0, top: 0,padding:3, backgroundColor:'#EB5757',marginTop:-5,marginRight:-5}}>
+                        1
+                      </Text>
+                      <Icon name="notifications" size={21} color="#71717A" />
                     </TouchableOpacity>
                   );
                 },
