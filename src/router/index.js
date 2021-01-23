@@ -72,6 +72,7 @@ const loginReducer = (prevState, action) => {
 };
 
 const Router = () => {
+  const [notifCount, setNotifCount] = React.useState(0);
   const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
 
   const authContext = useMemo(() => ({
@@ -172,9 +173,26 @@ const Router = () => {
                         position: 'relative',
                         marginRight: 30,
                       }}>
-                      <Text style={{zIndex: 10, borderRadius: 10,minWidth:20,fontSize:8,textAlign: 'center',color:'#fff',position: 'absolute', right: 0, top: 0,padding:3, backgroundColor:'#EB5757',marginTop:-5,marginRight:-5}}>
-                        1
+                      {/* {countNotif === 0 ? null : ( */}
+                      <Text
+                        style={{
+                          zIndex: 10,
+                          borderRadius: 10,
+                          minWidth: 20,
+                          fontSize: 8,
+                          textAlign: 'center',
+                          color: '#fff',
+                          position: 'absolute',
+                          right: 0,
+                          top: 0,
+                          padding: 3,
+                          backgroundColor: '#EB5757',
+                          marginTop: -5,
+                          marginRight: -5,
+                        }}>
+                        {notifCount}
                       </Text>
+                      {/* )} */}
                       <Icon name="notifications" size={21} color="#71717A" />
                     </TouchableOpacity>
                   );
