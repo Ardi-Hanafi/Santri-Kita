@@ -2,6 +2,7 @@ import React from 'react';
 import {View, FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {theme} from '../theme';
+import {DateFormat} from '../Helper';
 import NoData from '../NoData';
 
 const Item = ({title, date, uji}) => (
@@ -22,7 +23,7 @@ const Aktivitas = (Props) => {
   }
 
   const renderItem = ({item}) => (
-    <Item title={item.pelajaran} date={item.tanggal} />
+    <Item title={item.pelajaran} date={DateFormat(item.tanggal)} />
   );
 
   return (

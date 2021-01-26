@@ -5,12 +5,13 @@ import {useNavigation} from '@react-navigation/native';
 import {useQuery, gql} from '@apollo/client';
 import Loading from '../Loading';
 import Error from '../Error';
+import {DateFormat} from '../Helper';
 
 const GET_ACTIVITIES = gql`
   query Get_Activities($id: ID!) {
     user(id: $id) {
       student {
-        violations {
+        violations(sort:"tanggal:desc") {
           id
           pelanggaran
           tanggal
@@ -31,7 +32,7 @@ const Item = ({title, date}) => (
 );
 
 const renderItem = ({item}) => (
-  <Item key={item.id} title={item.pelanggaran} date={item.tanggal} />
+  <Item key={item.id} title={item.pelanggaran} date={DateFormat(item.tanggal)} />
 );
 
 const PelanggaranList = () => {

@@ -10,7 +10,7 @@ const GET_ACTIVITIES = gql`
   query Get_Activities($id: ID!) {
     user(id: $id) {
       student {
-        notifications(where: {terbaca: false}) {
+        notifications(where: {terbaca: false},sort:"waktu:desc") {
           id
           notifikasi
           waktu

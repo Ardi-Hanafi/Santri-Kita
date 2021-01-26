@@ -8,3 +8,8 @@ export const dateFormat = (dateString) => {
     date.getMonth() + 1
   }/${date.getFullYear()}`;
 };
+
+export const DateFormat = (dt) => {
+  const date = new Date(dt);
+  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+};

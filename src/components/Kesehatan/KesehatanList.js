@@ -6,12 +6,13 @@ import {theme} from '../theme';
 import {useQuery, gql} from '@apollo/client';
 import Loading from '../Loading';
 import Error from '../Error';
+import {DateFormat} from '../Helper';
 
 const GET_MEDICAL = gql`
   query Get_Medical($id: ID!) {
     user(id: $id) {
       student {
-        medical_histories {
+        medical_histories(sort:"tanggal:desc") {
           id
           penyakit
           keterangan
@@ -34,7 +35,7 @@ const Item = ({title, date}) => (
 );
 
 const renderItem = ({item}) => (
-  <Item key={item.id} title={item.penyakit} date={item.tanggal} />
+  <Item key={item.id} title={item.penyakit} date={DateFormat(item.tanggal)} />
 );
 
 const SilabusList = () => {

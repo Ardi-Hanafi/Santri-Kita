@@ -22,7 +22,7 @@ const GET_DATA = gql`
         kamar
         kelas {
           kelas
-          lesson_histories(limit: 3) {
+          lesson_histories(limit: 3,sort:"tanggal:desc") {
             id
             pelajaran
             tanggal

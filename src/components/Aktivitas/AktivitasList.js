@@ -3,13 +3,14 @@ import {View, FlatList, StyleSheet, Text} from 'react-native';
 import {useQuery, gql} from '@apollo/client';
 import Loading from '../Loading';
 import Error from '../Error';
+import {DateFormat} from '../Helper';
 
 const GET_ACTIVITIES = gql`
   query Get_Activities($id: ID!) {
     user(id: $id) {
       student {
         kelas {
-          lesson_histories {
+          lesson_histories(limit: 3,sort:"tanggal:desc") {
             id
             pelajaran
             tanggal
@@ -23,7 +24,7 @@ const GET_ACTIVITIES = gql`
 const Item = ({title, date}) => (
   <View style={styles.container}>
     <Text style={{color: '#71717A'}}>{title}</Text>
-    <Text style={{color: '#A1A1AA'}}>{date}</Text>
+    <Text style={{color: '#A1A1AA'}}>{DateFormat(date)}</Text>
   </View>
 );
 
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 20,
     backgroundColor: '#F4F4F5',
+    borderRadius: 8,
   },
 });
 
