@@ -6,13 +6,14 @@ import {theme} from '../theme';
 import {useQuery, gql} from '@apollo/client';
 import Loading from '../Loading';
 import Error from '../Error';
+import NoData from '../NoData';
 import {DateFormat} from '../Helper';
 
 const GET_MEDICAL = gql`
   query Get_Medical($id: ID!) {
     user(id: $id) {
       student {
-        medical_histories(sort:"tanggal:desc") {
+        medical_histories(sort: "tanggal:desc") {
           id
           penyakit
           keterangan
@@ -40,7 +41,8 @@ const renderItem = ({item}) => (
 
 const SilabusList = () => {
   const {loading, error, data} = useQuery(GET_MEDICAL, {
-    variables: {id: '2'},pollInterval:500
+    variables: {id: '2'},
+    pollInterval: 500,
   });
 
   if (loading) return <Loading />;
@@ -50,25 +52,7 @@ const SilabusList = () => {
     <FlatList
       data={data.user.student.medical_histories}
       renderItem={renderItem}
-      // keyExtractor={(item) => item.id}
-      ListEmptyComponent={
-        <View
-          style={{
-            marginVertical: 10,
-            marginHorizontal: 25,
-            paddingHorizontal: 20,
-            flexDirection: 'row',
-            alignItems: 'center',
-            height: 60,
-            backgroundColor: '#F4F4F5',
-            borderRadius: 8,
-            justifyContent: 'center',
-          }}>
-          <Text style={{fontSize: 15, color: '#71717A', textAlign: 'center'}}>
-            Tidak ada Data
-          </Text>
-        </View>
-      }
+      ListEmptyComponent={<NoData />}
     />
   );
 };

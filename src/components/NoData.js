@@ -1,6 +1,7 @@
-import {StyleSheet, View, Text} from 'react-native';
+import React from 'react';
+import {View, Text} from 'react-native';
 
-export default EmptyItem = () => (
+const NoData = () => (
   <View
     style={{
       marginVertical: 10,
@@ -13,9 +14,8 @@ export default EmptyItem = () => (
       borderRadius: 8,
       justifyContent: 'center',
     }}>
-    <Text style={{fontSize: 15, color: '#71717A', textAlign: 'center'}}>
-      Tidak ada Data
-    </Text>
+    <Text style={{color: '#71717A', textAlign: 'center'}}>Tidak ada Data</Text>
   </View>
 );
 
+export default NoData;
