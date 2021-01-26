@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import Menu from './Menu';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { theme } from '../theme';
+import theme from '../theme';
 
 const Menus = () => {
   return (

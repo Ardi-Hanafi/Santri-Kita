@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import { theme } from '../components/theme'
+import theme from '../components/theme'
 
 const SplashScreen = ({ navigation }) => {
     return (

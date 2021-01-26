@@ -1,6 +1,6 @@
-import { DefaultTheme } from 'react-native-paper';
+import {DefaultTheme} from 'react-native-paper';
 
-export const theme = {
+export default theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
@@ -30,5 +30,5 @@ export const theme = {
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 2,
-  }
-}
+  },
+};

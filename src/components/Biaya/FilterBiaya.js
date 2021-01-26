@@ -1,9 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {TouchableOpacity, Text, StyleSheet, View, Image} from 'react-native';
-import Lunas from './Lunas.svg';
 import Iconmci from 'react-native-vector-icons/MaterialCommunityIcons';
 import Iconft from 'react-native-vector-icons/Feather';
-
 
 const Item = (Props) => {
   const active = React.useMemo(()=>Props.active,[Props.active]);

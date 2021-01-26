@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {theme} from '../theme';
+import theme from '../theme';
 import {DateFormat} from '../Helper';
 import NoData from '../NoData';
 

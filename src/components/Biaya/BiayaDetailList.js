@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, Text, View, FlatList} from 'react-native';
-import BelumLunas from './BelumLunas.svg';
 import Iconft from 'react-native-vector-icons/Feather';
 import Iconmci from 'react-native-vector-icons/MaterialCommunityIcons';
 

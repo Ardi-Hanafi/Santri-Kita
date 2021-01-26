@@ -1,6 +1,6 @@
 import React from 'react';
 import Iconfa from 'react-native-vector-icons/FontAwesome';
-import {theme} from '../theme';
+import theme from '../theme';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 

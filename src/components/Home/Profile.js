@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, Text, View, StyleSheet} from 'react-native';
-import { theme } from '../theme'
+import theme from '../theme'
 
 const Profile = (Props) => {
   const data = React.useMemo(()=>{

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {theme} from '../theme';
+import theme from '../theme';
 import Iconmci from 'react-native-vector-icons/MaterialCommunityIcons';
 import NoData from '../NoData';
 

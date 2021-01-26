@@ -7,7 +7,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import {theme} from '../theme';
+import theme from '../theme';
 import Iconet from 'react-native-vector-icons/Entypo';
 import {useNavigation} from '@react-navigation/native';
 import {useQuery, gql} from '@apollo/client';

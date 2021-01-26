@@ -2,7 +2,7 @@ import React from 'react';
 import {Image, View, FlatList, StyleSheet, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useNavigation} from '@react-navigation/native';
-import {theme} from '../theme';
+import theme from '../theme';
 import {useQuery, gql} from '@apollo/client';
 import Loading from '../Loading';
 import Error from '../Error';
