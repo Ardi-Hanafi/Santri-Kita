@@ -11,7 +11,7 @@ import SilabusListDetail from '../components/Silabus/SilabusListDetail';
 const SilabusScreen = ({route,navigation}) => {
   const data = React.useMemo(()=>{
     return route.params;
-  },[route.params])
+  })
   return (
     <SafeAreaView style={styles.pageArea}>
       <ScrollView
