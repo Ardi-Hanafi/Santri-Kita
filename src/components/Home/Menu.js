@@ -1,8 +1,8 @@
 import React from 'react';
-import {TouchableOpacity, View, Text, Image, StyleSheet} from 'react-native';
+import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-const Menu = (Props) => {
+export default Menu = (Props) => {
   const navigation = useNavigation();
 
   function handleClick() {
@@ -14,14 +14,14 @@ const Menu = (Props) => {
       onPress={() => {
         handleClick();
       }}
-      style={styles.container}>
+      style={menuStyle.container}>
       {Props.iconSvg}
-      <Text style={styles.text}>{Props.labelText}</Text>
+      <Text style={menuStyle.text}>{Props.labelText}</Text>
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({
+const menuStyle = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -30,14 +30,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: '#ffffff',
   },
-  tinyLogo: {
-    width: 40,
-    height: 40,
-  },
   text: {
     color: '#71717A',
     fontSize: 12,
   },
 });
-
-export default Menu;

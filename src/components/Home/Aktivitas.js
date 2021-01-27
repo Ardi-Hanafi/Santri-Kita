@@ -5,34 +5,28 @@ import theme from '../theme';
 import {DateFormat} from '../Helper';
 import NoData from '../NoData';
 
-const Item = ({title, date, uji}) => (
-  <View style={styles.item}>
-    <Text style={styles.kegiatan}>{title}</Text>
-    <Text style={styles.waktu}>{date}</Text>
-  </View>
+const Item = ({title, date}) => {
+  return (
+    <View style={itemStyle.item}>
+      <Text style={itemStyle.title}>{title}</Text>
+      <Text style={itemStyle.date}>{date}</Text>
+    </View>
+  );
+};
+
+const renderItem = ({item}) => (
+  <Item key={item.id} title={item.pelajaran} date={DateFormat(item.tanggal)} />
 );
 
-const Aktivitas = (Props) => {
+export default Aktivitas = (Props) => {
+  const navigation = useNavigation();
   const data = React.useMemo(() => {
     return Props.data;
   });
 
-  const navigation = useNavigation();
-  function handleClick() {
-    navigation.navigate('Aktivitas');
-  }
-
-  const renderItem = ({item}) => (
-    <Item
-      key={item.id}
-      title={item.pelajaran}
-      date={DateFormat(item.tanggal)}
-    />
-  );
-
   return (
     <>
-      <Text style={styles.title}>Aktivitas</Text>
+      <Text style={aktivitasStyle.title}>Aktivitas</Text>
       <FlatList
         data={data}
         renderItem={renderItem}
@@ -40,31 +34,16 @@ const Aktivitas = (Props) => {
       />
       <TouchableOpacity
         onPress={() => {
-          handleClick();
+          navigation.navigate('Aktivitas');
         }}
-        style={styles.button}>
-        <Text
-          style={{
-            color: '#fff',
-          }}>
-          Selengkapnya
-        </Text>
+        style={aktivitasStyle.button}>
+        <Text style={aktivitasStyle.buttonText}>Selengkapnya</Text>
       </TouchableOpacity>
     </>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  title: {
-    alignSelf: 'center',
-    marginTop: 30,
-    marginBottom: 10,
-    fontSize: 18,
-    color: theme.colors.gray5,
-  },
+const itemStyle = StyleSheet.create({
   item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -74,12 +53,22 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
     borderRadius: 7,
   },
-  kegiatan: {
+  title: {
     fontSize: 14,
     color: theme.colors.gray5,
   },
-  waktu: {
+  date: {
     fontSize: 14,
+    color: theme.colors.gray5,
+  },
+});
+
+const aktivitasStyle = StyleSheet.create({
+  title: {
+    alignSelf: 'center',
+    marginTop: 30,
+    marginBottom: 10,
+    fontSize: 18,
     color: theme.colors.gray5,
   },
   button: {
@@ -90,6 +79,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
     borderRadius: 8,
   },
+  buttonText: {
+    color: '#fff',
+  },
 });
-
-export default Aktivitas;

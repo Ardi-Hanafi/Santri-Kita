@@ -1,49 +1,53 @@
 import React from 'react';
-import Iconfa from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import theme from '../theme';
 import {useNavigation} from '@react-navigation/native';
 import {moneySeparator} from '../Helper';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-const Biaya = ({data}) => {
-  // untuk pindah page
+const NoPembayaran = () => (
+  <Text style={pembayaranStyle.cost}>Tidak ada pembayaran</Text>
+);
+
+const Pembayaran = () => (
+  <>
+    <Text style={pembayaranStyle.cost}>Rp {moneySeparator(data.nominal)}</Text>
+    {/* perkondisian sesuai status pembayaran */}
+    <Text
+      style={[
+        pembayaranStyle.status,
+        data.status === 'Lulus'
+          ? pembayaranStyle.bgLulus
+          : pembayaranStyle.bgBelum,
+      ]}>
+      {data.status}
+    </Text>
+  </>
+);
+
+export default Biaya = ({data}) => {
   const navigation = useNavigation();
 
   return (
     <TouchableOpacity
-      style={styles.container}
+      style={biayaStyle.container}
       onPress={() => {
         navigation.navigate('Biaya');
       }}>
       {/* Detail of Biaya */}
-      <View style={styles.left}>
-        <Text style={styles.label}>Biaya:</Text>
-        {/*  */}
-        {data === undefined ? (
-          <Text style={styles.cost}>Tidak ada pembayaran</Text>
-        ) : (
-          <>
-            <Text style={styles.cost}>Rp {moneySeparator(data.nominal)}</Text>
-            {/* perkondisian sesuai status pembayaran */}
-            <Text
-              style={[
-                styles.status,
-                data.status === 'Lulus' ? styles.bgLulus : styles.bgBelum,
-              ]}>
-              {data.status}
-            </Text>
-          </>
-        )}
+      <View style={biayaStyle.left}>
+        <Text style={biayaStyle.label}>Biaya:</Text>
+        {data === undefined ? <NoPembayaran /> : <Pembayaran />}
       </View>
       {/* button right arrow */}
-      <View style={styles.right}>
-        <Iconfa name="angle-right" size={25} color="#71717A" />
+      <View style={biayaStyle.right}>
+        <Icon name="chevron-forward" size={25} color="#71717A" />
       </View>
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({
+const biayaStyle = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     flexDirection: 'row',
@@ -64,8 +68,6 @@ const styles = StyleSheet.create({
   right: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 15,
-    paddingHorizontal: 15,
   },
   left: {
     flexDirection: 'row',
@@ -75,10 +77,9 @@ const styles = StyleSheet.create({
     color: theme.colors.gray5,
     marginRight: 5,
   },
-  cost: {
-    color: theme.colors.gray5,
-    fontWeight: 'bold',
-  },
+});
+
+const pembayaranStyle = StyleSheet.create({
   bgLunas: {
     backgroundColor: theme.colors.brand2,
     color: theme.colors.brand7,
@@ -94,6 +95,8 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     marginLeft: 5,
   },
+  cost: {
+    color: theme.colors.gray5,
+    fontWeight: 'bold',
+  },
 });
-
-export default Biaya;

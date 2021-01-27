@@ -6,7 +6,7 @@ import theme from '../theme';
 
 const Menus = () => {
   return (
-    <View style={styles.container}>
+    <View style={menusStyles.container}>
       <Menu navigationName="Kesehatan" iconSvg={<Icon name='heart-outline' size={34} color="#10B981" />} labelText="Kesehatan"/>
       <Menu navigationName="Silabus" iconSvg={<Icon name='book-outline' size={34} color="#10B981" />} labelText="Silabus" />
       <Menu navigationName="Prestasi" iconSvg={<Icon name='md-medal-outline' size={34} color="#10B981" />} labelText="Prestasi"/>
@@ -15,7 +15,7 @@ const Menus = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const menusStyles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     marginRight: 25,
