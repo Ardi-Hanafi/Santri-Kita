@@ -1,24 +1,21 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
-import Icon from 
+import Icon from 'react-native-vector-icons/Ionicons';
 
-import {
-  HomeScreen,
-  ProfileScreen,
-} from '../pages';
-import { View,Text } from 'react-native';
+import {HomeScreen, ProfileScreen} from '../pages';
+import {View, Text} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-const TabComponent = (Props)=>{
-  return(
+const TabComponent = (Props) => {
+  return (
     <View>
-      <Text></Text>
+      <Text>Test</Text>
     </View>
   );
-}
+};
 
 export default MainTab = (Props) => {
   return (
