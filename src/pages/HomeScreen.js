@@ -40,6 +40,7 @@ const renderItem = ({item}) => (
     title={item.siswa_title}
     date={DateFormat(item.tanggal)}
     containerStyle={{marginVertical: 7}}
+    description={item.keterangan}
   />
 );
 

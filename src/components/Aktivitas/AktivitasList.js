@@ -5,32 +5,31 @@ import Loading from '../Loading';
 import Error from '../Error';
 import NoData from '../NoData';
 import {DateFormat} from '../Helper';
+import Item from '../Item';
 
 const GET_ACTIVITIES = gql`
   query Get_Activities($id: ID!) {
     user(id: $id) {
       student {
-        kelas {
-          lesson_histories(limit: 3, sort: "tanggal:desc") {
-            id
-            pelajaran
-            tanggal
-          }
+        student_aktivities(sort: "tanggal:desc") {
+          id
+          siswa_title
+          keterangan
+          tanggal
         }
       }
     }
   }
 `;
 
-const Item = ({title, date}) => (
-  <View style={styles.container}>
-    <Text style={{color: '#71717A'}}>{title}</Text>
-    <Text style={{color: '#A1A1AA'}}>{DateFormat(date)}</Text>
-  </View>
-);
 
 const renderItem = ({item}) => (
-  <Item key={item.id} title={item.pelajaran} date={item.tanggal} />
+  <Item
+    title={item.siswa_title}
+    date={DateFormat(item.tanggal)}
+    containerStyle={{marginVertical: 7}}
+    description={item.keterangan}
+  />
 );
 
 const AktivitasList = () => {
@@ -46,7 +45,7 @@ const AktivitasList = () => {
     return (
       <>
         <FlatList
-          data={data.user.student.kelas.lesson_histories}
+          data={data.user.student.student_aktivities}
           renderItem={renderItem}
           ListEmptyComponent={<NoData />}
         />

@@ -1,7 +1,6 @@
 import 'react-native-gesture-handler';
-import React, {useReducer, useEffect, useMemo} from 'react';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {SplashScreen, LoginScreen} from '../pages';
 
 import {
   KesehatanScreen,
@@ -14,16 +13,20 @@ import {
   BiayaDetailScreen,
   NotifScreen,
 } from '../pages';
-import MainTab from './Tab';
-import {View, Text} from 'react-native';
+import MainTab from './MainTab';
+import Header from '../components/Header';
 
 const Stack = createStackNavigator();
 
+const screenOptions = {
+  header: () => <Header name="Ahmad Supardi"/>,
+};
+
 const Router = () => {
   return (
-    <Stack.Navigator initialRouteName="MainApp">
+    <Stack.Navigator initialRouteName="Home" screenOptions={screenOptions} headerMode="float">
       <Stack.Screen name="Home" component={MainTab} />
-      <Stack.Screen name="Kesehatan" component={KesehatanScreen} />
+      <Stack.Screen name="Kesehatan" component={KesehatanScreen}/>
       <Stack.Screen name="Aktivitas" component={AktivitasScreen} />
       <Stack.Screen name="Pelanggaran" component={PelanggaranScreen} />
       <Stack.Screen name="Prestasi" component={PrestasiScreen} />
