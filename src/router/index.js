@@ -1,15 +1,12 @@
 import 'react-native-gesture-handler';
 import React, {useReducer, useEffect, useMemo} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Text, TouchableOpacity} from 'react-native';
 import {SplashScreen, LoginScreen} from '../pages';
-import ScreenRouter from './ScreenRouter';
 import {AuthContext, SantriDataContext} from '../components/Context';
 import AsyncStorage from '@react-native-community/async-storage';
 import {setContext} from '@apollo/client/link/context';
 
 import {
-  HomeScreen,
   KesehatanScreen,
   AktivitasScreen,
   PelanggaranScreen,
