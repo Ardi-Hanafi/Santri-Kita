@@ -41,7 +41,7 @@ const renderItem = ({item}) => (
 
 const PrestasiList = () => {
   const {loading, error, data} = useQuery(GET_ACTIVITIES, {
-    variables: {id: '2'},
+    variables: {id: 28},
     pollInterval: 500,
   });
 

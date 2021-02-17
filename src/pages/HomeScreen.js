@@ -1,17 +1,14 @@
-import 'react-native-gesture-handler';
+// import 'react-native-gesture-handler';
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
-import Biaya from '../components/Home/Biaya';
-import Profile from '../components/Home/Profile';
-import Menus from '../components/Home/Menus';
-import Aktivitas from '../components/Home/Aktivitas';
+import {StyleSheet, FlatList, SafeAreaView, ScrollView} from 'react-native';
+import HeaderList from '../components/Home/HeaderList';
+import {DateFormat} from '../components/Helper';
 import {useQuery, gql} from '@apollo/client';
-import HomeLoading from '../components/loading/HomeLoading';
+import LoadingScreen from './LoadingScreen';
+import ErrorScreen from './ErrorScreen';
+import Item from '../components/Item';
+// import NoData from '../components/NoData';
+import FooterList from '../components/Home/FooterList';
 
 const GET_DATA = gql`
   query Get_Data($id: ID!) {
@@ -21,12 +18,14 @@ const GET_DATA = gql`
         nama
         kamar
         kelas {
+          id
           kelas
-          lesson_histories(limit: 3,sort:"tanggal:desc") {
-            id
-            pelajaran
-            tanggal
-          }
+        }
+        student_aktivities(sort: "tanggal:desc") {
+          id
+          siswa_title
+          keterangan
+          tanggal
         }
         bills(limit: 1) {
           status
@@ -36,34 +35,37 @@ const GET_DATA = gql`
     }
   }
 `;
+const renderItem = ({item}) => (
+  <Item
+    title={item.siswa_title}
+    date={DateFormat(item.tanggal)}
+    containerStyle={{marginVertical: 7}}
+  />
+);
 
-const wait = (timeout) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, timeout);
-  });
-};
-
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({route, navigation}) => {
   const {loading, error, data} = useQuery(GET_DATA, {
-    variables: {id: '2'},pollInterval:500
+    variables: {id: 28},
+    pollInterval: 500,
   });
-  if (loading) return <HomeLoading />;
-  if (error) return <Text>Error</Text>;
-  // console.log(data.user.student.bills[0])
+  if (loading) return <LoadingScreen />;
+  if (error) return <ErrorScreen />;
+  const {student_aktivities, bills} = data.user.student;
   return (
     <SafeAreaView style={styles.pageArea}>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={styles.bagianScroll}>
-        <Biaya data={data.user.student.bills[0]} />
-        <Profile
-          nama={data.user.student.nama}
-          kamar={data.user.student.kamar}
-          kelas={data.user.student.kelas.kelas}
-        />
-        <Menus />
-        <Aktivitas data={data.user.student.kelas.lesson_histories} />
-      </ScrollView>
+      <FlatList
+        keyExtractor={(item) => item.id}
+        data={student_aktivities}
+        renderItem={renderItem}
+        ListHeaderComponent={<HeaderList dataBiaya={bills[0]} />}
+        ListFooterComponent={<FooterList />}
+        ListEmptyComponent={() => (
+          <Item
+            title="Tidak ada data"
+            wrapper={{alignItems: 'center', justifyContent: 'center'}}
+          />
+        )}
+      />
     </SafeAreaView>
   );
 };
@@ -71,20 +73,10 @@ const HomeScreen = ({navigation}) => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  bagianScroll: {
-    backgroundColor: '#fff',
-  },
+  
   pageArea: {
     height: '100%',
     backgroundColor: '#fff',
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  container: {
-    width: '100%',
-    alignContent: 'center',
+    paddingHorizontal: 25
   },
 });

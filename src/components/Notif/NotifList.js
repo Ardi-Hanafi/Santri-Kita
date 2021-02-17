@@ -69,7 +69,7 @@ const renderItem = ({item}) => <Item key={item.id} data={item} />;
 
 const AktivitasList = () => {
   const {loading, error, data} = useQuery(GET_ACTIVITIES, {
-    variables: {id: '2'},
+    variables: {id: 28},
     pollInterval: 500,
   });
 

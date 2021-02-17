@@ -1,7 +1,7 @@
 import React from 'react';
+import {Text,View} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+
 
 import {
   HomeScreen,
@@ -18,48 +18,83 @@ import {
 } from '../pages';
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
-
-const Pages = () => {
+const Pages = ({route}) => {
   return (
-    <Stack.Navigator iznitialRouteName="Home" headerMode="none">
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Kesehatan" component={KesehatanScreen} />
-      <Stack.Screen name="Aktivitas" component={AktivitasScreen} />
-      <Stack.Screen name="Pelanggaran" component={PelanggaranScreen} />
-      <Stack.Screen name="Prestasi" component={PrestasiScreen} />
-      <Stack.Screen name="Silabus" component={SilabusScreen} />
-      <Stack.Screen name="SilabusDetail" component={SilabusDetailScreen} />
-      <Stack.Screen name="Biaya" component={BiayaScreen} />
-      <Stack.Screen name="BiayaDetail" component={BiayaDetailScreen} />
-      <Stack.Screen name="Notif" component={NotifScreen} />
+    <Stack.Navigator initialRouteName="Home" headerMode="none">
+      <Stack.Screen
+        name="Home"
+        initialParams={{...route.params}}
+        component={HomeScreen}
+      />
+      <Stack.Screen
+        name="Kesehatan"
+        initialParams={{...route.params}}
+        component={KesehatanScreen}
+      />
+      <Stack.Screen
+        name="Aktivitas"
+        initialParams={{...route.params}}
+        component={AktivitasScreen}
+      />
+      <Stack.Screen
+        name="Pelanggaran"
+        initialParams={{...route.params}}
+        component={PelanggaranScreen}
+      />
+      <Stack.Screen
+        name="Prestasi"
+        initialParams={{...route.params}}
+        component={PrestasiScreen}
+      />
+      <Stack.Screen
+        name="Silabus"
+        initialParams={{...route.params}}
+        component={SilabusScreen}
+      />
+      <Stack.Screen
+        name="SilabusDetail"
+        initialParams={{...route.params}}
+        component={SilabusDetailScreen}
+      />
+      <Stack.Screen
+        name="Biaya"
+        initialParams={{...route.params}}
+        component={BiayaScreen}
+      />
+      <Stack.Screen
+        name="BiayaDetail"
+        initialParams={{...route.params}}
+        component={BiayaDetailScreen}
+      />
+      <Stack.Screen
+        name="Notif"
+        initialParams={{...route.params}}
+        component={NotifScreen}
+      />
     </Stack.Navigator>
   );
 };
 
-export default MainApp = () => {
+const MyTab = (Props) => {
   return (
-    <Tab.Navigator
-    tabBarOptions={{
-        activeTintColor: '#10B981',
-      }}>
+    <View style={{}}>
+      <Text>Test</Text>
+    </View>
+  );
+};
+
+export default MainApp = ({route}) => {
+  return (
+    <Tab.Navigator tabBar={MyTab}>
       <Stack.Screen
         name="Home"
         component={Pages}
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <Icon name="home" color={color} size={size} />
-          ),
-        }}
+        initialParams={{...route.params}}
+        
       />
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <Icon name="user-alt" color={color} size={size} />
-          ),
-        }}
       />
     </Tab.Navigator>
   );

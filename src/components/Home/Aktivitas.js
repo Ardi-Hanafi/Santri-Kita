@@ -15,9 +15,8 @@ const Item = ({title, date}) => {
 };
 
 const renderItem = ({item}) => (
-  <Item key={item.id} title={item.pelajaran} date={DateFormat(item.tanggal)} />
+  <Item key={item.id} title={item.siswa_title} date={DateFormat(item.tanggal)} />
 );
-
 export default Aktivitas = (Props) => {
   const navigation = useNavigation();
   const data = React.useMemo(() => {
@@ -26,7 +25,7 @@ export default Aktivitas = (Props) => {
 
   return (
     <>
-      <Text style={aktivitasStyle.title}>Aktivitas</Text>
+      
       <FlatList
         data={data}
         renderItem={renderItem}

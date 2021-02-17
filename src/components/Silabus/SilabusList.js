@@ -82,7 +82,7 @@ const renderItem = ({item}) => {
 
 const SilabusList = () => {
   const {loading, error, data} = useQuery(GET_SILABUS, {
-    variables: {id: '2'},pollInterval:500
+    variables: {id: 28},pollInterval:500
   });
 
   if (loading) return <Loading />;

@@ -4,10 +4,23 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Text, TouchableOpacity} from 'react-native';
 import {SplashScreen, LoginScreen} from '../pages';
 import ScreenRouter from './ScreenRouter';
-import {AuthContext} from '../components/Context';
+import {AuthContext, SantriDataContext} from '../components/Context';
 import AsyncStorage from '@react-native-community/async-storage';
 import {setContext} from '@apollo/client/link/context';
-import Icon from 'react-native-vector-icons/Ionicons';
+
+import {
+  HomeScreen,
+  KesehatanScreen,
+  AktivitasScreen,
+  PelanggaranScreen,
+  PrestasiScreen,
+  SilabusScreen,
+  SilabusDetailScreen,
+  BiayaScreen,
+  BiayaDetailScreen,
+  NotifScreen,
+} from '../pages';
+import MainTab from './Tab';
 
 import {
   ApolloProvider,
@@ -17,17 +30,15 @@ import {
 } from '@apollo/client';
 
 const Stack = createStackNavigator();
-import {useNavigation} from '@react-navigation/native';
 
 // endpoint api
 const httpLink = createHttpLink({
-  uri: `https://avocado-api-test.herokuapp.com/graphql`,
+  uri: `https://santrikita-api.herokuapp.com/graphql`,
 });
 
 const authLink = setContext(async (_, {headers}) => {
   // get the authentication token from local storage if it exists
   const token = await AsyncStorage.getItem('userToken');
-  console.log(token);
   // return the headers to the context so httpLink can read them
   return {
     headers: {
@@ -74,7 +85,7 @@ const loginReducer = (prevState, action) => {
 const Router = () => {
   const [notifCount, setNotifCount] = React.useState(0);
   const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
-
+  const [dataSantri, setDataSantri] = React.useState();
   const authContext = useMemo(() => ({
     signIn: async (jwt, userName) => {
       if (jwt) {
@@ -129,82 +140,44 @@ const Router = () => {
   };
 
   return (
-    <AuthContext.Provider value={authContext}>
-      <ApolloProvider client={client}>
-        <Stack.Navigator initialRouteName="MainApp">
-          {handleSplash()}
-          {loginState.userToken === null ? (
-            <Stack.Screen
-              options={{headerShown: false}}
-              name="Login"
-              component={LoginScreen}
-            />
-          ) : (
-            <Stack.Screen
-              options={{
-                headerStyle: {
-                  borderColor: '#E5E7EB',
-                  borderWidth: 1,
-                  elevation: 0,
-                  shadowOpacity: 0,
-                },
-                headerTitle: (Props) => {
-                  return (
-                    <Text
-                      style={{
-                        fontFamily: 'Roboto',
-                        marginLeft: 15,
-                        fontSize: 16,
-                        fontWeight: 'bold',
-                        color: '#828282',
-                      }}>
-                      Santri Kita
-                    </Text>
-                  );
-                },
-                headerRight: (Props) => {
-                  const navigation = useNavigation();
-                  return (
-                    <TouchableOpacity
-                      onPress={() => {
-                        navigation.navigate('Notif');
-                      }}
-                      style={{
-                        position: 'relative',
-                        marginRight: 30,
-                      }}>
-                      {/* {countNotif === 0 ? null : ( */}
-                      <Text
-                        style={{
-                          zIndex: 10,
-                          borderRadius: 10,
-                          minWidth: 20,
-                          fontSize: 8,
-                          textAlign: 'center',
-                          color: '#fff',
-                          position: 'absolute',
-                          right: 0,
-                          top: 0,
-                          padding: 3,
-                          backgroundColor: '#EB5757',
-                          marginTop: -5,
-                          marginRight: -5,
-                        }}>
-                        {notifCount}
-                      </Text>
-                      {/* )} */}
-                      <Icon name="notifications" size={21} color="#71717A" />
-                    </TouchableOpacity>
-                  );
-                },
-              }}
-              name="MainApp"
-              component={ScreenRouter}
-            />
-          )}
-        </Stack.Navigator>
-      </ApolloProvider>
-    </AuthContext.Provider>
+    <SantriDataContext.Provider value={(dataSantri, setDataSantri)}>
+      <AuthContext.Provider value={authContext}>
+        <ApolloProvider client={client}>
+          <Stack.Navigator initialRouteName="MainApp">
+            {handleSplash()}
+            {loginState.userToken === null ? (
+              <Stack.Screen
+                options={{headerShown: false}}
+                name="Login"
+                component={LoginScreen}
+              />
+            ) : (
+              <>
+                <Stack.Screen name="Home" component={MainTab} />
+                <Stack.Screen name="Kesehatan" component={KesehatanScreen} />
+                <Stack.Screen name="Aktivitas" component={AktivitasScreen} />
+                <Stack.Screen
+                  name="Pelanggaran"
+                  component={PelanggaranScreen}
+                />
+                <Stack.Screen name="Prestasi" component={PrestasiScreen} />
+                <Stack.Screen name="Silabus" component={SilabusScreen} />
+                <Stack.Screen
+                  name="SilabusDetail"
+                  component={SilabusDetailScreen}
+                />
+                <Stack.Screen name="Biaya" component={BiayaScreen} />
+                <Stack.Screen
+                  name="BiayaDetail"
+                  component={BiayaDetailScreen}
+                />
+                <Stack.Screen name="Notif" component={NotifScreen} />
+              </>
+            )}
+          </Stack.Navigator>
+        </ApolloProvider>
+      </AuthContext.Provider>
+    </SantriDataContext.Provider>
   );
 };
 

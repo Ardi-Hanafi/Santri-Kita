@@ -4,9 +4,9 @@ import Menu from './Menu';
 import Icon from 'react-native-vector-icons/Ionicons';
 import theme from '../theme';
 
-const Menus = () => {
+const Menus = (Props) => {
   return (
-    <View style={menusStyles.container}>
+    <View style={{...Style.container,...Props.containerStyle}}>
       <Menu navigationName="Kesehatan" iconSvg={<Icon name='heart-outline' size={34} color="#10B981" />} labelText="Kesehatan"/>
       <Menu navigationName="Silabus" iconSvg={<Icon name='book-outline' size={34} color="#10B981" />} labelText="Silabus" />
       <Menu navigationName="Prestasi" iconSvg={<Icon name='md-medal-outline' size={34} color="#10B981" />} labelText="Prestasi"/>
@@ -15,12 +15,10 @@ const Menus = () => {
   );
 };
 
-const menusStyles = StyleSheet.create({
+const Style = StyleSheet.create({
   container: {
+    width:'100%',
     flexDirection: 'row',
-    marginRight: 25,
-    marginLeft: 25,
-    marginTop: 20,
     justifyContent: 'space-between',
     borderRadius: 8,
     backgroundColor: '#ffffff',

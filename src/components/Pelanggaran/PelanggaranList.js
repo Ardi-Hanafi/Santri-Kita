@@ -37,7 +37,7 @@ const renderItem = ({item}) => (
 
 const PelanggaranList = () => {
   const {loading, error, data} = useQuery(GET_ACTIVITIES, {
-    variables: {id: '2'},pollInterval:500
+    variables: {id: 28},pollInterval:500
   });
 
   if (loading) return <Loading />;

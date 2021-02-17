@@ -9,7 +9,7 @@ const NoPembayaran = () => (
   <Text style={pembayaranStyle.cost}>Tidak ada pembayaran</Text>
 );
 
-const Pembayaran = () => (
+const Pembayaran = ({data}) => (
   <>
     <Text style={pembayaranStyle.cost}>Rp {moneySeparator(data.nominal)}</Text>
     {/* perkondisian sesuai status pembayaran */}
@@ -25,30 +25,31 @@ const Pembayaran = () => (
   </>
 );
 
-export default Biaya = ({data}) => {
+export default Biaya = ({containerStyle,data}) => {
   const navigation = useNavigation();
 
   return (
     <TouchableOpacity
-      style={biayaStyle.container}
+      style={{...Style.container,...containerStyle}}
       onPress={() => {
         navigation.navigate('Biaya');
       }}>
       {/* Detail of Biaya */}
-      <View style={biayaStyle.left}>
-        <Text style={biayaStyle.label}>Biaya:</Text>
-        {data === undefined ? <NoPembayaran /> : <Pembayaran />}
+      <View style={Style.left}>
+        <Text style={Style.label}>Biaya:</Text>
+        {data === undefined ? <NoPembayaran /> : <Pembayaran data={data}/>}
       </View>
       {/* button right arrow */}
-      <View style={biayaStyle.right}>
+      <View style={Style.right}>
         <Icon name="chevron-forward" size={25} color="#71717A" />
       </View>
     </TouchableOpacity>
   );
 };
 
-const biayaStyle = StyleSheet.create({
+const Style = StyleSheet.create({
   container: {
+    width:'100%',
     backgroundColor: '#fff',
     flexDirection: 'row',
     height: 60,
@@ -56,10 +57,6 @@ const biayaStyle = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: 25,
     paddingRight: 25,
-    marginLeft: 25,
-    marginRight: 25,
-    marginTop: 15,
-    marginBottom: 20,
     borderRadius: 8,
     borderColor: theme.colors.gray2,
     borderRadius: 9,
