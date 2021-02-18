@@ -52,8 +52,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    marginHorizontal: 25,
-    marginBottom: 15,
     borderWidth: 1,
     borderColor: '#10B981',
     borderRadius: 8,

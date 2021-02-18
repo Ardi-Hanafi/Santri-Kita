@@ -1,4 +1,3 @@
-// import 'react-native-gesture-handler';
 import React from 'react';
 import {StyleSheet, FlatList, SafeAreaView, ScrollView} from 'react-native';
 import HeaderList from '../components/Home/HeaderList';
@@ -7,7 +6,7 @@ import {useQuery, gql} from '@apollo/client';
 import LoadingScreen from './LoadingScreen';
 import ErrorScreen from './ErrorScreen';
 import Item from '../components/Item';
-// import NoData from '../components/NoData';
+
 import FooterList from '../components/Home/FooterList';
 
 const GET_DATA = gql`
@@ -73,8 +72,7 @@ const HomeScreen = ({route, navigation}) => {
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({
-  
+const styles = StyleSheet.create({  
   pageArea: {
     height: '100%',
     backgroundColor: '#fff',

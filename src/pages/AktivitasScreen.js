@@ -1,29 +1,58 @@
-import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, SafeAreaView, ScrollView} from 'react-native';
-import Title from '../components/Title';
-import RiwayatList from '../components/Aktivitas/AktivitasList';
-import DateFilter from '../components/Aktivitas/DateFilter';
-import moment from 'moment';
+import {SafeAreaView, FlatList, StyleSheet} from 'react-native';
+import {useQuery, gql} from '@apollo/client';
+import Item from '../components/Item';
+import LoadingScreen from './LoadingScreen';
+import ErrorScreen from './ErrorScreen';
+import {DateFormat} from '../components/Helper';
+import HeaderList from '../components/Aktivitas/HeaderList';
+
+const GET_ACTIVITIES = gql`
+  query Get_Activities($id: ID!) {
+    user(id: $id) {
+      student {
+        student_aktivities(sort: "tanggal:desc") {
+          id
+          siswa_title
+          keterangan
+          tanggal
+        }
+      }
+    }
+  }
+`;
+
+const renderItem = ({item}) => (
+  <Item
+    title={item.siswa_title}
+    date={DateFormat(item.tanggal)}
+    containerStyle={{marginVertical: 7}}
+    description={item.keterangan}
+  />
+);
 
 const AktivitasScreen = ({navigation}) => {
-  const handleCallback = (_date, _startDate, _endDate) => {
-    console.log([
-      _startDate.format('YYYY-MM-DD'),
-      _endDate.format('YYYY-MM-DD'),
-      _date.format('YYYY-MM-DD'),
-    ]);
-  };
+  const {loading, error, data} = useQuery(GET_ACTIVITIES, {
+    variables: {id: 28},
+    pollInterval: 500,
+  });
+
+  if (loading) return <LoadingScreen />;
+  if (error) return <ErrorScreen />;
 
   return (
     <SafeAreaView style={styles.pageArea}>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={styles.bagianScroll}>
-        <Title backRoute="Home" title="Aktivitas" />
-        <DateFilter parentCallback={handleCallback} />
-        <RiwayatList />
-      </ScrollView>
+      <FlatList
+        data={data.user.student.student_aktivities}
+        renderItem={renderItem}
+        ListHeaderComponent={<HeaderList />}
+        ListEmptyComponent={() => (
+          <Item
+            title="Tidak ada data"
+            wrapper={{alignItems: 'center', justifyContent: 'center'}}
+          />
+        )}
+      />
     </SafeAreaView>
   );
 };
@@ -31,13 +60,10 @@ const AktivitasScreen = ({navigation}) => {
 export default AktivitasScreen;
 
 const styles = StyleSheet.create({
-  bagianScroll: {
-    backgroundColor: '#fff',
-    flex: 1,
-  },
   pageArea: {
     height: '100%',
     backgroundColor: '#fff',
+    paddingHorizontal: 25
   },
   title: {
     textAlign: 'center',
