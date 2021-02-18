@@ -1,9 +1,5 @@
-import {DefaultTheme} from 'react-native-paper';
-
 export default theme = {
-  ...DefaultTheme,
   colors: {
-    ...DefaultTheme.colors,
     brand1: '#D1FAE5',
     brand2: '#A7F3D0',
     brand3: '#6EE7B7',
