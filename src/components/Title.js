@@ -32,7 +32,6 @@ const Title = (Props) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginHorizontal: 25,
     marginVertical: 25,
     alignItems: 'center',
   },

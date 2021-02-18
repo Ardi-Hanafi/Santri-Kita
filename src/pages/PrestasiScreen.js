@@ -1,17 +1,59 @@
-import 'react-native-gesture-handler';
 import React from 'react';
-import {StyleSheet, SafeAreaView, ScrollView} from 'react-native';
-import Title from '../components/Title';
-import PrestasiList from '../components/Prestasi/PrestasiList';
+import {FlatList, StyleSheet, SafeAreaView} from 'react-native';
+import ItemIcon from '../components/ItemIcon';
+import Item from '../components/Item';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {useQuery, gql} from '@apollo/client';
+import LoadingScreen from './LoadingScreen';
+import ErrorScreen from './ErrorScreen';
+import HeaderList from '../components/Prestasi/HeaderList';
+
+const GET_ACTIVITIES = gql`
+  query Get_Activities($id: ID!) {
+    user(id: $id) {
+      student {
+        achievements {
+          id
+          prestasi
+          kegiatan_lomba
+          tahun
+        }
+      }
+    }
+  }
+`;
+
+const renderItem = ({item}) => (
+  <ItemIcon
+    title={item.prestasi}
+    date={item.tahun}
+    icon={<Icon name="medal-outline" size={30} color="#71717A" />}
+  />
+);
+
 const PrestasiScreen = ({navigation}) => {
+  const {loading, error, data} = useQuery(GET_ACTIVITIES, {
+    variables: {id: 28},
+    pollInterval: 500,
+  });
+
+  if (loading) return <LoadingScreen />;
+  if (error) return <ErrorScreen />;
+
   return (
     <SafeAreaView style={styles.pageArea}>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={styles.bagianScroll}>
-        <Title backRoute="Home" title="Prestasi" />
-        <PrestasiList />
-      </ScrollView>
+      <FlatList
+        data={data.user.student.achievements}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        ListHeaderComponent={<HeaderList />}
+        ListEmptyComponent={
+          <Item
+            title="Tidak ada data"
+            wrapper={{alignItems: 'center', justifyContent: 'center'}}
+          />
+        }
+      />
     </SafeAreaView>
   );
 };
@@ -19,20 +61,9 @@ const PrestasiScreen = ({navigation}) => {
 export default PrestasiScreen;
 
 const styles = StyleSheet.create({
-  bagianScroll: {
-    backgroundColor: '#fff',
-  },
   pageArea: {
     height: '100%',
     backgroundColor: '#fff',
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  container: {
-    width: '100%',
-    alignContent: 'center',
+    paddingHorizontal: 25,
   },
 });

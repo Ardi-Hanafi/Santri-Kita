@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {TouchableOpacity, Text, StyleSheet, View, Image} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {TouchableOpacity, Text, StyleSheet, View} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const data = [
   {
@@ -25,17 +25,14 @@ const Item = (Props) => {
         setActive(!active);
       }}>
       <View style={[active ? styles.itemAktif : styles.item]}>
-        <Icon 
-          name='heart' 
-          size={15} color="#fff" 
-          style={{marginRight:10}}
-        />
-        <Text 
-          style={{ 
-            color:'#fff',
-            fontSize:12, 
-          }}
-        >{Props.title}</Text>
+        <Icon name="heart" size={15} color="#fff" style={{marginRight: 10}} />
+        <Text
+          style={{
+            color: '#fff',
+            fontSize: 12,
+          }}>
+          {Props.title}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -65,7 +62,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     marginHorizontal: 5,
-    borderRadius: 8
+    borderRadius: 8,
   },
   itemAktif: {
     flexDirection: 'row',
@@ -74,7 +71,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     marginHorizontal: 5,
-    borderRadius: 8
+    borderRadius: 8,
   },
 });
 
