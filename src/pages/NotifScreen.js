@@ -1,18 +1,51 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {StyleSheet, SafeAreaView, ScrollView} from 'react-native';
-import Title from '../components/Title';
-import NotifList from '../components/Notif/NotifList'
+import {FlatList, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
+import HeaderList from '../components/Notif/HeaderList';
+import LoadingScreen from './LoadingScreen';
+import ErrorScreen from './ErrorScreen';
+import ItemNotif from '../components/Notif/ItemNotif';
+import {useQuery, gql} from '@apollo/client';
+
+const GET_NOTIF = gql`
+  query Get_Notif($id: ID!) {
+    user(id: $id) {
+      student {
+        notifications(where: {terbaca: false}, sort: "waktu:desc") {
+          id
+          notifikasi
+          waktu
+          slug
+        }
+      }
+    }
+  }
+`;
 
 const AktivitasScreen = ({navigation}) => {
+  const renderItem = ({item}) => <ItemNotif data={item} />;
+
+  const {loading, error, data} = useQuery(GET_NOTIF, {
+    variables: {id: 28},
+    pollInterval: 500,
+  });
+  if (loading) return <LoadingScreen />;
+  if (error) return <ErrorScreen />;
+
   return (
     <SafeAreaView style={styles.pageArea}>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={styles.bagianScroll}>
-        <Title backRoute="Home" title="Notifikasi" />
-        <NotifList/>
-      </ScrollView>
+      <FlatList
+        data={data.user.student.notifications}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+        ListHeaderComponent={HeaderList}
+        ListEmptyComponent={
+          <Item
+            title="Tidak ada data"
+            wrapper={{alignItems: 'center', justifyContent: 'center'}}
+          />
+        }
+      />
     </SafeAreaView>
   );
 };
@@ -20,21 +53,9 @@ const AktivitasScreen = ({navigation}) => {
 export default AktivitasScreen;
 
 const styles = StyleSheet.create({
-  bagianScroll: {
-    backgroundColor: '#fff',
-    flex: 1,
-  },
   pageArea: {
     height: '100%',
     backgroundColor: '#fff',
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  container: {
-    width: '100%',
-    alignContent: 'center',
+    paddingHorizontal: 25,
   },
 });

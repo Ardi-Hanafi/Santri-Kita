@@ -1,8 +1,10 @@
+import {useNavigation} from '@react-navigation/core';
 import * as React from 'react';
 import {StyleSheet} from 'react-native';
 import {Text, View, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 export default Header = (Props) => {
+  const navigation = useNavigation();
   return (
     <View style={Style.container}>
       <View>
@@ -12,7 +14,11 @@ export default Header = (Props) => {
         </Text>
       </View>
 
-      <TouchableOpacity style={Style.buttonContainer}>
+      <TouchableOpacity
+        style={Style.buttonContainer}
+        onPress={() => {
+          navigation.navigate('Notif');
+        }}>
         <View style={Style.redDot}>
           <Text style={Style.textRedDot}>1</Text>
         </View>

@@ -49,12 +49,12 @@ export default KesehatanScreen = ({navigation}) => {
         data={data.user.student.medical_histories}
         renderItem={renderItem}
         ListHeaderComponent={<HeaderList />}
-        ListEmptyComponent={() => (
+        ListEmptyComponent={
           <Item
             title="Tidak ada data"
             wrapper={{alignItems: 'center', justifyContent: 'center'}}
           />
-        )}
+        }
       />
     </SafeAreaView>
   );

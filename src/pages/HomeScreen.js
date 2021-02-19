@@ -54,8 +54,8 @@ const HomeScreen = ({route, navigation}) => {
   return (
     <SafeAreaView style={styles.pageArea}>
       <FlatList
-        keyExtractor={(item) => item.id}
         data={student_aktivities}
+        keyExtractor={(item) => item.id}
         renderItem={renderItem}
         ListHeaderComponent={<HeaderList dataBiaya={bills[0]} />}
         ListFooterComponent={<FooterList />}

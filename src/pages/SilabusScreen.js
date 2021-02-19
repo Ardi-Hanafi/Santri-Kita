@@ -1,22 +1,58 @@
-import 'react-native-gesture-handler';
 import React from 'react';
-import {
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
-import Title from '../components/Title';
-import SilabusList from '../components/Silabus/SilabusList';
+import {Text, FlatList, StyleSheet, SafeAreaView} from 'react-native';
+import HeaderList from '../components/Silabus/HeaderList';
+import {useQuery, gql} from '@apollo/client';
+import LoadingScreen from './LoadingScreen';
+import ErrorScreen from './ErrorScreen';
+import {filter} from '../components/Helper';
+import Item from '../components/Silabus/ItemSilabus';
+
+const GET_SILABUS = gql`
+  query Get_Silabus($id: ID!) {
+    user(id: $id) {
+      student {
+        kelas {
+          silabuses {
+            id
+            pelajaran
+            bab
+            kompetensi_dasar
+            keterangan
+          }
+        }
+      }
+    }
+  }
+`;
+
+const renderItem = ({item}) => {
+  return <Item item={item} />;
+};
 
 const SilabusScreen = ({navigation}) => {
+  const {loading, error, data} = useQuery(GET_SILABUS, {
+    variables: {id: 28},
+    pollInterval: 500,
+  });
+
+  if (loading) return <LoadingScreen />;
+  if (error) return <ErrorScreen />;
+  const newData = filter(data.user.student.kelas.silabuses);
+  
   return (
     <SafeAreaView style={styles.pageArea}>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={styles.bagianScroll}>
-        <Title backRoute="Home" title="Silabus" />
-        <SilabusList />
-      </ScrollView>
+      <FlatList
+        data={newData}
+        keyExtractor={(item) => item.pelajaran}
+        renderItem={renderItem}
+        ListHeaderComponent={HeaderList}
+        ListEmptyComponent={
+          <Item
+            title="Tidak ada data"
+            wrapper={{alignItems: 'center', justifyContent: 'center'}}
+          />
+        }
+      />
     </SafeAreaView>
   );
 };
@@ -24,13 +60,9 @@ const SilabusScreen = ({navigation}) => {
 export default SilabusScreen;
 
 const styles = StyleSheet.create({
-  bagianScroll: {
-    backgroundColor: '#fff',
-
-  },
   pageArea: {
     height: '100%',
     backgroundColor: '#fff',
+    paddingHorizontal: 25,
   },
-
 });
