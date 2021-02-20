@@ -1,12 +1,14 @@
-import 'react-native-gesture-handler';
 import React from 'react';
-import {Text,View, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
-import Title from '../components/Title';
-import FilterBiaya from '../components/Biaya/FilterBiaya';
-import BiayaList from '../components/Biaya/BiayaList';
+import {FlatList, StyleSheet, SafeAreaView} from 'react-native';
+import HeaderListBiaya from '../components/Biaya/HeaderListBiaya';
 import {useQuery, gql} from '@apollo/client';
-import Loading from '../components/Loading';
-import Error from '../components/Error';
+import LoadingScreen from './LoadingScreen';
+import ErrorScreen from './ErrorScreen';
+
+import ItemEmpty from '../components/ItemEmpty';
+import ItemBiaya from '../components/Biaya/ItemBiaya';
+
+const renderItem = ({item}) => <ItemBiaya data={item} />;
 
 const GET_ACTIVITIES = gql`
   query Get_Activities($id: ID!) {
@@ -31,51 +33,42 @@ const GET_ACTIVITIES = gql`
 
 const BiayaScreen = ({navigation}) => {
   const {loading, error, data} = useQuery(GET_ACTIVITIES, {
-    variables: {id: 28},pollInterval:500
+    variables: {id: 28},
+    pollInterval: 500,
   });
 
   const [lunas, setLunas] = React.useState(true);
   const [belumLunas, setBelumLunas] = React.useState(true);
 
-  if (loading)
-    return (
-      <View style={{ flex:1,backgroundColor:'#fff' }}>
-        <Title backRoute="Home" title="Biaya" />
-        <Loading />
-      </View>
-    );
-  if (error) {
-    console.log(error);
-    return (
-      <View style={{ flex:1,backgroundColor:'#fff' }}>
-        <Title backRoute="Home" title="Biaya" />
-        <Error />
-      </View>
-    );
-  }
+  if (loading) return <LoadingScreen />;
+  if (error) return <ErrorScreen />;
+
+  const dataFiltered = data.user.student.bills.filter((item) => {
+    if (
+      (lunas && item.status === 'Lunas') ||
+      (belumLunas && item.status === 'Belum Lunas')
+    )
+      return true;
+  });
+
+  const headerListBiaya = (
+    <HeaderListBiaya
+      lunas={lunas}
+      setLunas={setLunas}
+      belumLunas={belumLunas}
+      setBelumLunas={setBelumLunas}
+    />
+  );
 
   return (
     <SafeAreaView style={styles.pageArea}>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={styles.bagianScroll}>
-        <Title backRoute="Home" title="Biaya" />
-        <FilterBiaya
-          lunas={lunas}
-          setLunas={setLunas}
-          belumLunas={belumLunas}
-          setBelumLunas={setBelumLunas}
-        />
-        <BiayaList
-          data={data.user.student.bills.filter((item) => {
-            if (
-              (lunas && item.status === 'Lunas') ||
-              (belumLunas && item.status === 'Belum Lunas')
-            )
-              return true;
-          })}
-        />
-      </ScrollView>
+      <FlatList
+        data={dataFiltered}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        ListHeaderComponent={headerListBiaya}
+        ListEmptyComponent={ItemEmpty}
+      />
     </SafeAreaView>
   );
 };
@@ -83,20 +76,10 @@ const BiayaScreen = ({navigation}) => {
 export default BiayaScreen;
 
 const styles = StyleSheet.create({
-  bagianScroll: {
-    backgroundColor: '#fff',
-  },
   pageArea: {
     height: '100%',
     backgroundColor: '#fff',
+    paddingHorizontal: 25,
   },
-  title: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  container: {
-    width: '100%',
-    alignContent: 'center',
-  },
+  
 });

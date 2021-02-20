@@ -2,11 +2,9 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   SafeAreaView,
   ScrollView,
-  TouchableOpacity,
 } from 'react-native';
 import Title from '../components/Title';
 import BiayaDetailList from '../components/Biaya/BiayaDetailList';
@@ -38,6 +36,7 @@ const styles = StyleSheet.create({
   pageArea: {
     height: '100%',
     backgroundColor: '#fff',
+    paddingHorizontal:25
   },
   container: {
     height: '100%',

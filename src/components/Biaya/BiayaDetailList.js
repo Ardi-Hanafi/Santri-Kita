@@ -40,13 +40,10 @@ const BiayaDetailList = ({data}) => {
           <Text style={{...styles.text}}>{tanggal_pembayaran}</Text>
         </View>
         <View
-          style={{
-            backgroundColor: '#D1FAE5',
-            paddingVertical: 16,
-            paddingHorizontal: 15,
-            marginVertical: 15,
-            borderRadius: 15,
-          }}>
+          style={[
+            styles.containerDetail,
+            status === 'Lunas' ? styles.bgLunas : styles.bgBelum,
+          ]}>
           <View style={styles.rincian}>
             <Text style={styles.text}>Nominal Pembayaran</Text>
             <Text style={{...styles.text}}>{nominal}</Text>
@@ -76,7 +73,7 @@ const BiayaDetailList = ({data}) => {
           </View>
         </View>
       </View>
-      <View style={{ marginTop:150,  }}>
+      <View style={{marginTop: 150}}>
         <Text style={{...styles.text, textAlign: 'center'}}>Catatan</Text>
         <Text style={styles.catatan}>{keterangan}</Text>
       </View>
@@ -90,21 +87,11 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     marginVertical: 15,
-    marginHorizontal: 25,
     paddingVertical: 15,
     paddingHorizontal: 15,
     borderRadius: 15,
     borderWidth: 1,
     borderColor: '#D1D5DB',
-    // shadow
-    shadowColor: '#999999',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 2,
   },
   text: {
     color: '#52525B',
@@ -114,7 +101,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    // marginVertical: 15,
   },
   catatan: {
     color: '#52525B',
@@ -122,5 +108,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 50,
     marginHorizontal: 25,
+  },
+  containerDetail: {
+    paddingVertical: 16,
+    paddingHorizontal: 15,
+    marginVertical: 15,
+    borderRadius: 15,
+  },
+  bgLunas: {
+    backgroundColor: '#D1FAE5',
+  },
+  bgBelum: {
+    backgroundColor: '#FEF3C7',
   },
 });
