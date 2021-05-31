@@ -1,13 +1,13 @@
 import React from 'react';
 import {StyleSheet, FlatList, SafeAreaView, ScrollView} from 'react-native';
-import HeaderList from '../components/Home/HeaderList';
 import {DateFormat} from '../components/Helper';
+import Item from '../components/Item';
 import {useQuery, gql} from '@apollo/client';
 import LoadingScreen from './LoadingScreen';
 import ErrorScreen from './ErrorScreen';
-import Item from '../components/Item';
-
+import HeaderList from '../components/Home/HeaderList';
 import FooterList from '../components/Home/FooterList';
+import {AuthContext, SantriDataContext} from '../components/Context';
 
 const GET_DATA = gql`
   query Get_Data($id: ID!) {
@@ -34,6 +34,7 @@ const GET_DATA = gql`
     }
   }
 `;
+
 const renderItem = ({item}) => (
   <Item
     title={item.siswa_title}
@@ -44,12 +45,17 @@ const renderItem = ({item}) => (
 );
 
 const HomeScreen = ({route, navigation}) => {
+  const {setDataSantri} = React.useContext(SantriDataContext);
   const {loading, error, data} = useQuery(GET_DATA, {
-    variables: {id: 28},
+    variables: {id: route.params.id},
     pollInterval: 500,
+    onCompleted(dt) {
+      setDataSantri({nama: dt.user.student.nama});
+    },
   });
   if (loading) return <LoadingScreen />;
   if (error) return <ErrorScreen />;
+
   const {student_aktivities, bills} = data.user.student;
   return (
     <SafeAreaView style={styles.pageArea}>
@@ -72,10 +78,10 @@ const HomeScreen = ({route, navigation}) => {
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({  
+const styles = StyleSheet.create({
   pageArea: {
     height: '100%',
     backgroundColor: '#fff',
-    paddingHorizontal: 25
+    paddingHorizontal: 25,
   },
 });

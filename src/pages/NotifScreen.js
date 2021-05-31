@@ -22,11 +22,11 @@ const GET_NOTIF = gql`
   }
 `;
 
-const AktivitasScreen = ({navigation}) => {
+const AktivitasScreen = ({navigation,route}) => {
   const renderItem = ({item}) => <ItemNotif data={item} />;
 
   const {loading, error, data} = useQuery(GET_NOTIF, {
-    variables: {id: 28},
+    variables: {id: route.params.id},
     pollInterval: 500,
   });
   if (loading) return <LoadingScreen />;

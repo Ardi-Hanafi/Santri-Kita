@@ -31,9 +31,9 @@ const GET_ACTIVITIES = gql`
   }
 `;
 
-const BiayaScreen = ({navigation}) => {
+const BiayaScreen = ({navigation,route}) => {
   const {loading, error, data} = useQuery(GET_ACTIVITIES, {
-    variables: {id: 28},
+    variables: {id: route.params.id},
     pollInterval: 500,
   });
 

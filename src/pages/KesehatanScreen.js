@@ -34,9 +34,9 @@ const renderItem = ({item}) => {
   );
 };
 
-export default KesehatanScreen = ({navigation}) => {
+export default KesehatanScreen = ({navigation,route}) => {
   const {loading, error, data} = useQuery(GET_MEDICAL, {
-    variables: {id: 28},
+    variables: {id: route.params.id},
     pollInterval: 500,
   });
 

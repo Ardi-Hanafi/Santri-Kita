@@ -3,6 +3,7 @@ import * as React from 'react';
 import {StyleSheet} from 'react-native';
 import {Text, View, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+
 export default Header = (Props) => {
   const navigation = useNavigation();
   return (
@@ -10,7 +11,7 @@ export default Header = (Props) => {
       <View>
         <Text style={Style.title}>Santri Kita</Text>
         <Text style={Style.name}>
-          {Props.ustadName || '..................'}
+          {Props.name || '..................'}
         </Text>
       </View>
 
@@ -20,7 +21,7 @@ export default Header = (Props) => {
           navigation.navigate('Notif');
         }}>
         <View style={Style.redDot}>
-          <Text style={Style.textRedDot}>1</Text>
+          <Text style={Style.textRedDot}>{Props.countNotif}</Text>
         </View>
         <Icon name="notifications" size={29} color="#71717A" />
       </TouchableOpacity>

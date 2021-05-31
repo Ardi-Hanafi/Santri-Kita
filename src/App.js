@@ -1,7 +1,8 @@
 import React, {useReducer, useEffect, useMemo} from 'react';
+import LoginScreen from './pages/LoginScreen';
 import {NavigationContainer} from '@react-navigation/native';
-import Router from './router';
-import {AuthContext} from './components/Context';
+import Router from './Router';
+import {AuthContext, SantriDataContext} from './components/Context';
 import AsyncStorage from '@react-native-community/async-storage';
 import {setContext} from '@apollo/client/link/context';
 
@@ -39,6 +40,7 @@ const initialLoginState = {
   isLoading: true,
   userName: null,
   userToken: null,
+  nama: '.................',
 };
 
 const loginReducer = (prevState, action) => {
@@ -65,6 +67,11 @@ const loginReducer = (prevState, action) => {
 };
 
 const App = () => {
+  const [dataSantri, setDataSantri] = React.useState({
+    nama: '................',
+  });
+  const santriDataContext = React.useMemo(() => ({dataSantri, setDataSantri}));
+
   const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
   const authContext = useMemo(() => ({
     signIn: async (jwt, userName) => {
@@ -87,6 +94,7 @@ const App = () => {
       }
       dispatch({type: 'LOGOUT'});
     },
+    userID: loginState.userName
   }));
 
   useEffect(() => {
@@ -111,11 +119,13 @@ const App = () => {
 
   return (
     <AuthContext.Provider value={authContext}>
-      <ApolloProvider client={client}>
-        <NavigationContainer>
-          {loginState.userToken === null ? <LoginScreen /> : <Router />}
-        </NavigationContainer>
-      </ApolloProvider>
+      <SantriDataContext.Provider value={santriDataContext}>
+        <ApolloProvider client={client}>
+          <NavigationContainer>
+            {loginState.userToken === null ? <LoginScreen /> : <Router />}
+          </NavigationContainer>
+        </ApolloProvider>
+      </SantriDataContext.Provider>
     </AuthContext.Provider>
   );
 };

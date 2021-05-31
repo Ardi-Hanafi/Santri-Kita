@@ -1,16 +1,13 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 
-// const navigation = useNavigation();
 const activeColor = '#10B981';
 const inActiveColor = '#A1A1AA';
 const fontSize = 10;
 const iconSize = 28;
 
-export default Tab = ({navigation,state}) => {
-//   const {state};
+export default MainTab = ({navigation, state}) => {
   return (
     <View style={{...Style.container}}>
       <TouchableOpacity
@@ -62,10 +59,9 @@ const Style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 10,
-
   },
-  iconContainer:{
+  iconContainer: {
     alignItems: 'center',
-    marginHorizontal: 100
-  }
+    marginHorizontal: 100,
+  },
 });

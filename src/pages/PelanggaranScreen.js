@@ -30,9 +30,9 @@ const renderItem = ({item}) => (
   />
 );
 
-const PelanggaranScreen = ({navigation}) => {
+const PelanggaranScreen = ({navigation,route}) => {
   const {loading, error, data} = useQuery(GET_ACTIVITIES, {
-    variables: {id: 28},
+    variables: {id: route.params.id},
     pollInterval: 500,
   });
 

@@ -11,8 +11,10 @@ import SilabusDetailScreen from './SilabusDetailScreen';
 import BiayaScreen from './BiayaScreen';
 import BiayaDetailScreen from './BiayaDetailScreen';
 import NotifScreen from './NotifScreen';
+import MainScreen from './MainScreen';
 
 export {
+  MainScreen,
   HomeScreen,
   ProfileScreen,
   SplashScreen,

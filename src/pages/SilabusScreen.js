@@ -29,9 +29,9 @@ const renderItem = ({item}) => {
   return <Item item={item} />;
 };
 
-const SilabusScreen = ({navigation}) => {
+const SilabusScreen = ({navigation,route}) => {
   const {loading, error, data} = useQuery(GET_SILABUS, {
-    variables: {id: 28},
+    variables: {id: route.params.id},
     pollInterval: 500,
   });
 
